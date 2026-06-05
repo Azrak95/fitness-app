@@ -2,17 +2,20 @@
 
 ## Last completed task
 
-**Entrenamiento screen — fully implemented and polished**
+**Alimentación screen — overhaul completo (Phase 6)**
 
-All features of the Entrenamiento module are complete:
-- Progressive check buttons per serie
-- Cronómetro with drag, beeps, red flash
-- Rep delta and weight PR badges
-- CrossFit logros with add/edit/delete
-- Finalizar entrenamiento with multi-session support
-- Auto-connection to Alimentación (TDEE selection)
-- Auto-connection to Inicio dashboard (entreno card)
-- Progress bar per rutina
+Todo implementado y con macros calculados de ingredientes reales:
+- Header centrado
+- Grid entrenamiento reordenado (Gym · CrossFit · Doble · Descanso)
+- Desayuno renombrado con nombre descriptivo
+- Comida: 4 opciones nuevas con macros reales (lentejas, garbanzos, arroz, patata)
+- Merienda renombrada
+- Cena: wraps recalculados con valores exactos de producto (Havarti, atún)
+- Salsas recalculadas (QFB 0% real = 23 kcal base)
+- Postre expandido: Manzana · Pera · Sandía · Plátano · Sin postre
+- Bloque "✏️ Otro" en cada comida: multi-item con nombre, kcal y prot por item
+- Bug timezone dkey() corregido (local vs UTC)
+- Bug Entrenamiento→Alimentación sync corregido
 
 ---
 
@@ -64,5 +67,5 @@ Then: PROGRESO
 - `finalizarEntreno()` must keep its dual-session logic (`train_log` accumulation + `dayState.train` TDEE mapping)
 - `syncUI()` in Alimentación reads `state.train` — the 4 valid values are: `'descanso'`, `'gym'`, `'crossfit'`, `'doble'`
 - The cronómetro drag uses `position:fixed` with `top/left` after first drag — do not reset to `bottom/right` on re-render
-- `node --check` must pass before every delivery
 - The CF fixed input (`#cf-input-fixed`) is appended to `#app`, not inside the screen div — it must be cleaned up on any navigation away from CF tab
+- `extraDesayuno/Comida/Merienda/Cena` in state are **arrays** `[{name,k,p}]`, NOT objects `{k,p}` — backward compat handled in `getExtra(g)`

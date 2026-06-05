@@ -181,6 +181,7 @@ nav{position:fixed;bottom:0;left:0;right:0;z-index:200;background:rgba(238,238,2
 .page-back svg{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round;}
 .page-big-title{font-family:var(--font-display);font-size:52px;letter-spacing:2px;color:var(--text);text-transform:uppercase;position:relative;z-index:1;}
 .page-big-sub{font-size:14px;color:var(--text2);margin-top:6px;font-weight:500;position:relative;z-index:1;}
+.ali-header .page-big-title,.ali-header .page-big-sub{text-align:center;}
 
 .deficit-hero{margin:16px;background:var(--text);border-radius:var(--radius);padding:22px;position:relative;overflow:hidden;}
 .deficit-hero::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(22,163,74,0.3) 0%,transparent 60%);pointer-events:none;}
@@ -226,6 +227,24 @@ nav{position:fixed;bottom:0;left:0;right:0;z-index:200;background:rgba(238,238,2
 input[type=range]{width:100%;-webkit-appearance:none;height:4px;background:var(--bg4);border-radius:2px;outline:none;}
 input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:22px;height:22px;border-radius:50%;background:var(--green);cursor:pointer;box-shadow:0 2px 8px rgba(22,163,74,0.4);}
 
+.manual-row{margin:6px 16px 0;background:var(--bg2);border:1.5px solid var(--green);border-radius:var(--radius-xs);padding:14px 12px;}
+.manual-row-title{font-size:11px;font-weight:800;letter-spacing:0.08em;text-transform:uppercase;color:var(--green);margin-bottom:10px;}
+.manual-row-fields{display:flex;gap:10px;}
+.manual-field{flex:1;}
+.manual-field-lbl{font-size:11px;color:var(--text3);font-weight:600;margin-bottom:5px;}
+.manual-input{width:100%;background:var(--bg);border:1px solid var(--border2);border-radius:8px;padding:9px 10px;font-size:16px;font-weight:700;color:var(--text);font-family:var(--font);outline:none;-webkit-appearance:none;}
+.manual-input:focus{border-color:var(--green);}
+.manual-items{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px;}
+.manual-chip{display:flex;align-items:center;gap:5px;background:var(--green-dim);border:1px solid var(--green);border-radius:20px;padding:5px 10px;}
+.manual-chip-name{font-size:12px;font-weight:700;color:var(--text);max-width:100px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.manual-chip-kcal{font-size:11px;color:var(--text2);white-space:nowrap;}
+.manual-chip-del{background:none;border:none;color:var(--text3);cursor:pointer;font-size:16px;line-height:1;padding:0 0 0 2px;font-weight:700;}
+.manual-form-name{width:100%;margin-bottom:8px;}
+.manual-form-nums{display:flex;gap:8px;}
+.manual-form-nums .manual-input{flex:1;}
+.manual-add-btn{width:100%;margin-top:10px;background:var(--green);color:#fff;border:none;border-radius:8px;padding:11px;font-size:14px;font-weight:700;font-family:var(--font);cursor:pointer;letter-spacing:0.03em;}
+.manual-add-btn:active{background:var(--green2);}
+.manual-add-more{width:100%;margin-top:8px;background:none;border:1.5px dashed var(--green);color:var(--green);border-radius:8px;padding:9px;font-size:13px;font-weight:700;font-family:var(--font);cursor:pointer;}
 .train-card{margin:0 16px;background:var(--bg2);border:0.5px solid var(--border);border-radius:var(--radius-sm);padding:16px;box-shadow:0 1px 6px rgba(0,0,0,0.04);}
 .train-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px;}
 .train-opt{background:var(--bg3);border:1.5px solid var(--border);border-radius:var(--radius-xs);padding:12px;cursor:pointer;transition:all 0.15s;display:flex;flex-direction:column;gap:3px;}
@@ -474,39 +493,95 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:22px;heigh
   <div class="train-card">
     <div style="font-size:13px;color:var(--text2);font-weight:600;">¿Qué has hecho hoy?</div>
     <div class="train-grid">
-      <div class="train-opt sel" onclick="selTrain('descanso',this)"><div class="train-emoji">😴</div><div class="train-name">Descanso</div><div class="train-tdee">~2.270 kcal</div></div>
       <div class="train-opt" onclick="selTrain('gym',this)"><div class="train-emoji">🏋️</div><div class="train-name">Gimnasio</div><div class="train-tdee">~2.600 kcal</div></div>
       <div class="train-opt" onclick="selTrain('crossfit',this)"><div class="train-emoji">⚡</div><div class="train-name">CrossFit</div><div class="train-tdee">~2.600 kcal</div></div>
       <div class="train-opt" onclick="selTrain('doble',this)"><div class="train-emoji">🔥</div><div class="train-name">Doble sesión</div><div class="train-tdee">~2.770 kcal</div></div>
+      <div class="train-opt" onclick="selTrain('descanso',this)"><div class="train-emoji">😴</div><div class="train-name">Descanso</div><div class="train-tdee">~2.270 kcal</div></div>
     </div>
   </div>
 
   <div class="sec-lbl">☀️ Desayuno</div>
   <div class="opt-grid">
-    <div class="opt-card sel" onclick="selMeal('desayuno','completo',this)"><div class="opt-emoji">🍞</div><div class="opt-name">Completo</div><div class="opt-kcal">369 kcal</div><div class="opt-prot">19g prot</div></div>
+    <div class="opt-card sel" onclick="selMeal('desayuno','completo',this)"><div class="opt-emoji">🍞</div><div class="opt-name">Tostada de pavo, café con leche y plátano</div><div class="opt-kcal">369 kcal</div><div class="opt-prot">19g prot</div></div>
     <div class="opt-card" onclick="selMeal('desayuno','nada',this)"><div class="opt-emoji">⛔</div><div class="opt-name">Sin desayuno</div><div class="opt-kcal">0 kcal</div><div class="opt-prot">—</div></div>
+    <div class="opt-card" id="manual-card-desayuno" onclick="toggleManual('desayuno',this)"><div class="opt-emoji">✏️</div><div class="opt-name">Otro</div><div class="opt-kcal" id="manual-disp-desayuno">—</div><div class="opt-prot" id="manual-prot-desayuno">—</div></div>
+  </div>
+  <div class="manual-row" id="manual-inputs-desayuno" style="display:none">
+    <div class="manual-items" id="manual-items-desayuno"></div>
+    <div id="manual-form-desayuno">
+      <div class="manual-row-title">Añadir alimento extra</div>
+      <input type="text" class="manual-input manual-form-name" placeholder="Nombre (ej: frutos secos)" id="manual-name-desayuno">
+      <div class="manual-form-nums">
+        <input type="number" class="manual-input" placeholder="kcal" id="manual-k-desayuno">
+        <input type="number" class="manual-input" placeholder="prot g" id="manual-p-desayuno">
+      </div>
+      <button class="manual-add-btn" onclick="addManualItem('desayuno')">Añadir</button>
+    </div>
+    <button class="manual-add-more" id="manual-more-desayuno" onclick="showManualForm('desayuno')" style="display:none">+ Añadir otro</button>
   </div>
 
   <div class="sec-lbl">🥦 Comida</div>
   <div class="opt-grid">
-    <div class="opt-card sel" onclick="selMeal('comida','taper',this)"><div class="opt-emoji">🥡</div><div class="opt-name">Táper</div><div class="opt-kcal">490 kcal</div><div class="opt-prot">54g prot</div></div>
-    <div class="opt-card" onclick="selMeal('comida','taper50',this)"><div class="opt-emoji">🍚</div><div class="opt-name">Táper + arroz 50g</div><div class="opt-kcal">665 kcal</div><div class="opt-prot">61g prot</div></div>
-    <div class="opt-card" onclick="selMeal('comida','taper70',this)"><div class="opt-emoji">🍚</div><div class="opt-name">Táper + arroz 70g</div><div class="opt-kcal">735 kcal</div><div class="opt-prot">64g prot</div></div>
-    <div class="opt-card" onclick="selMeal('comida','rapida',this)"><div class="opt-emoji">🐟</div><div class="opt-name">Comida rápida</div><div class="opt-kcal">~350 kcal</div><div class="opt-prot">40g prot</div></div>
+    <div class="opt-card sel" onclick="selMeal('comida','taper',this)"><div class="opt-emoji">🍛</div><div class="opt-name">Lentejas con pollo y verduras</div><div class="opt-kcal">490 kcal</div><div class="opt-prot">54g prot</div></div>
+    <div class="opt-card" onclick="selMeal('comida','garbanzos',this)"><div class="opt-emoji">🥘</div><div class="opt-name">Garbanzos con pollo y verduras</div><div class="opt-kcal">489 kcal</div><div class="opt-prot">59g prot</div></div>
+    <div class="opt-card" onclick="selMeal('comida','arroz',this)"><div class="opt-emoji">🍚</div><div class="opt-name">Arroz con pollo y verduras</div><div class="opt-kcal">504 kcal</div><div class="opt-prot">52g prot</div></div>
+    <div class="opt-card" onclick="selMeal('comida','patata',this)"><div class="opt-emoji">🥔</div><div class="opt-name">Patata cocida con pollo y verduras</div><div class="opt-kcal">489 kcal</div><div class="opt-prot">53g prot</div></div>
     <div class="opt-card" onclick="selMeal('comida','nada',this)"><div class="opt-emoji">⛔</div><div class="opt-name">No como</div><div class="opt-kcal">0 kcal</div><div class="opt-prot">—</div></div>
+    <div class="opt-card" id="manual-card-comida" onclick="toggleManual('comida',this)"><div class="opt-emoji">✏️</div><div class="opt-name">Otro</div><div class="opt-kcal" id="manual-disp-comida">—</div><div class="opt-prot" id="manual-prot-comida">—</div></div>
+  </div>
+  <div class="manual-row" id="manual-inputs-comida" style="display:none">
+    <div class="manual-items" id="manual-items-comida"></div>
+    <div id="manual-form-comida">
+      <div class="manual-row-title">Añadir alimento extra</div>
+      <input type="text" class="manual-input manual-form-name" placeholder="Nombre (ej: yogur)" id="manual-name-comida">
+      <div class="manual-form-nums">
+        <input type="number" class="manual-input" placeholder="kcal" id="manual-k-comida">
+        <input type="number" class="manual-input" placeholder="prot g" id="manual-p-comida">
+      </div>
+      <button class="manual-add-btn" onclick="addManualItem('comida')">Añadir</button>
+    </div>
+    <button class="manual-add-more" id="manual-more-comida" onclick="showManualForm('comida')" style="display:none">+ Añadir otro</button>
   </div>
 
   <div class="sec-lbl">🥤 Merienda</div>
   <div class="opt-grid">
-    <div class="opt-card sel" onclick="selMeal('merienda','batido',this)"><div class="opt-emoji">🥤</div><div class="opt-name">Batido proteína</div><div class="opt-kcal">117 kcal</div><div class="opt-prot">28g prot</div></div>
+    <div class="opt-card sel" onclick="selMeal('merienda','batido',this)"><div class="opt-emoji">🥤</div><div class="opt-name">Batido de proteínas con agua</div><div class="opt-kcal">117 kcal</div><div class="opt-prot">28g prot</div></div>
     <div class="opt-card" onclick="selMeal('merienda','nada',this)"><div class="opt-emoji">⛔</div><div class="opt-name">Sin merienda</div><div class="opt-kcal">0 kcal</div><div class="opt-prot">—</div></div>
+    <div class="opt-card" id="manual-card-merienda" onclick="toggleManual('merienda',this)"><div class="opt-emoji">✏️</div><div class="opt-name">Otro</div><div class="opt-kcal" id="manual-disp-merienda">—</div><div class="opt-prot" id="manual-prot-merienda">—</div></div>
+  </div>
+  <div class="manual-row" id="manual-inputs-merienda" style="display:none">
+    <div class="manual-items" id="manual-items-merienda"></div>
+    <div id="manual-form-merienda">
+      <div class="manual-row-title">Añadir alimento extra</div>
+      <input type="text" class="manual-input manual-form-name" placeholder="Nombre (ej: manzana)" id="manual-name-merienda">
+      <div class="manual-form-nums">
+        <input type="number" class="manual-input" placeholder="kcal" id="manual-k-merienda">
+        <input type="number" class="manual-input" placeholder="prot g" id="manual-p-merienda">
+      </div>
+      <button class="manual-add-btn" onclick="addManualItem('merienda')">Añadir</button>
+    </div>
+    <button class="manual-add-more" id="manual-more-merienda" onclick="showManualForm('merienda')" style="display:none">+ Añadir otro</button>
   </div>
 
   <div class="sec-lbl">🌙 Cena</div>
   <div class="opt-grid">
-    <div class="opt-card" onclick="selCena('atun',this)"><div class="opt-emoji">🐟</div><div class="opt-name">Wrap atún</div><div class="opt-kcal">366 kcal</div><div class="opt-prot">33g prot</div></div>
-    <div class="opt-card" onclick="selCena('pollo',this)"><div class="opt-emoji">🍗</div><div class="opt-name">Wrap pollo</div><div class="opt-kcal">382 kcal</div><div class="opt-prot">42g prot</div></div>
+    <div class="opt-card" onclick="selCena('atun',this)"><div class="opt-emoji">🐟</div><div class="opt-name">Wrap atún</div><div class="opt-kcal">393 kcal</div><div class="opt-prot">36g prot</div></div>
+    <div class="opt-card" onclick="selCena('pollo',this)"><div class="opt-emoji">🍗</div><div class="opt-name">Wrap pollo</div><div class="opt-kcal">406 kcal</div><div class="opt-prot">45g prot</div></div>
     <div class="opt-card" onclick="selCena('nada',this)"><div class="opt-emoji">⛔</div><div class="opt-name">Sin cena</div><div class="opt-kcal">0 kcal</div><div class="opt-prot">—</div></div>
+    <div class="opt-card" id="manual-card-cena" onclick="toggleManual('cena',this)"><div class="opt-emoji">✏️</div><div class="opt-name">Otro</div><div class="opt-kcal" id="manual-disp-cena">—</div><div class="opt-prot" id="manual-prot-cena">—</div></div>
+  </div>
+  <div class="manual-row" id="manual-inputs-cena" style="display:none">
+    <div class="manual-items" id="manual-items-cena"></div>
+    <div id="manual-form-cena">
+      <div class="manual-row-title">Añadir alimento extra</div>
+      <input type="text" class="manual-input manual-form-name" placeholder="Nombre (ej: helado)" id="manual-name-cena">
+      <div class="manual-form-nums">
+        <input type="number" class="manual-input" placeholder="kcal" id="manual-k-cena">
+        <input type="number" class="manual-input" placeholder="prot g" id="manual-p-cena">
+      </div>
+      <button class="manual-add-btn" onclick="addManualItem('cena')">Añadir</button>
+    </div>
+    <button class="manual-add-more" id="manual-more-cena" onclick="showManualForm('cena')" style="display:none">+ Añadir otro</button>
   </div>
 
   <div class="salsa-section" id="salsa-section">
@@ -518,10 +593,12 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:22px;heigh
       <div class="opt-card" onclick="selMeal('salsa','pepinillos',this)"><div class="opt-emoji">🥒</div><div class="opt-name">Pepinillos</div><div class="opt-kcal">43 kcal</div></div>
       <div class="opt-card" onclick="selMeal('salsa','sin',this)"><div class="opt-emoji">⛔</div><div class="opt-name">Sin salsa</div><div class="opt-kcal">0 kcal</div></div>
     </div>
-    <div class="sec-lbl">🍉 Postre</div>
+    <div class="sec-lbl">🍎 Fruta / Postre</div>
     <div class="opt-grid cols3">
-      <div class="opt-card" onclick="selMeal('postre','sandia',this)"><div class="opt-emoji">🍉</div><div class="opt-name">Sandía</div><div class="opt-kcal">90 kcal</div></div>
+      <div class="opt-card" onclick="selMeal('postre','manzana',this)"><div class="opt-emoji">🍎</div><div class="opt-name">Manzana</div><div class="opt-kcal">78 kcal</div></div>
       <div class="opt-card" onclick="selMeal('postre','pera',this)"><div class="opt-emoji">🍐</div><div class="opt-name">Pera</div><div class="opt-kcal">85 kcal</div></div>
+      <div class="opt-card" onclick="selMeal('postre','sandia',this)"><div class="opt-emoji">🍉</div><div class="opt-name">Sandía</div><div class="opt-kcal">90 kcal</div></div>
+      <div class="opt-card" onclick="selMeal('postre','platano',this)"><div class="opt-emoji">🍌</div><div class="opt-name">Plátano</div><div class="opt-kcal">107 kcal</div></div>
       <div class="opt-card" onclick="selMeal('postre','sin',this)"><div class="opt-emoji">⛔</div><div class="opt-name">Sin postre</div><div class="opt-kcal">0 kcal</div></div>
     </div>
   </div>
@@ -595,11 +672,11 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:22px;heigh
 <script>
 const KCAL={
   desayuno:{completo:{k:369,p:19,c:68,f:4},nada:{k:0,p:0,c:0,f:0}},
-  comida:{taper:{k:490,p:54,c:48,f:9},taper50:{k:665,p:61,c:86,f:9},taper70:{k:735,p:64,c:101,f:9},rapida:{k:350,p:40,c:20,f:8},nada:{k:0,p:0,c:0,f:0}},
+  comida:{taper:{k:490,p:54,c:48,f:9},garbanzos:{k:489,p:59,c:42,f:8},arroz:{k:504,p:52,c:54,f:5},patata:{k:489,p:53,c:49,f:5},nada:{k:0,p:0,c:0,f:0}},
   merienda:{batido:{k:117,p:28,c:1,f:1},nada:{k:0,p:0,c:0,f:0}},
-  cena:{atun:{k:366,p:33,c:29,f:13},pollo:{k:382,p:42,c:27,f:11},nada:{k:0,p:0,c:0,f:0}},
-  salsa:{rosa:{k:60,p:5,c:6,f:2},normal:{k:40,p:4,c:2,f:0},piparras:{k:45,p:4,c:3,f:0},pepinillos:{k:43,p:4,c:2,f:0},sin:{k:0,p:0,c:0,f:0}},
-  postre:{sandia:{k:90,p:2,c:22,f:1},pera:{k:85,p:1,c:22,f:0},sin:{k:0,p:0,c:0,f:0}}
+  cena:{atun:{k:393,p:36,c:29,f:15},pollo:{k:406,p:45,c:28,f:12},nada:{k:0,p:0,c:0,f:0}},
+  salsa:{rosa:{k:47,p:5,c:6,f:1},normal:{k:23,p:4,c:2,f:0},piparras:{k:25,p:4,c:2,f:0},pepinillos:{k:25,p:4,c:2,f:0},sin:{k:0,p:0,c:0,f:0}},
+  postre:{manzana:{k:78,p:0,c:20,f:0},pera:{k:85,p:1,c:22,f:0},sandia:{k:90,p:2,c:22,f:1},platano:{k:107,p:1,c:27,f:0},sin:{k:0,p:0,c:0,f:0}}
 };
 const TDEE_MAP={descanso:2270,gym:2600,crossfit:2600,doble:2770};
 const TRAIN_LABEL={descanso:'Descanso',gym:'Gimnasio',crossfit:'CrossFit',doble:'Doble sesión'};
@@ -607,11 +684,11 @@ const DIAS_FULL=['Domingo','Lunes','Martes','Miércoles','Jueves','Viernes','Sá
 const MESES=['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
 
 let currentDate=new Date();currentDate.setHours(0,0,0,0);
-let state={train:'descanso',desayuno:'completo',comida:'taper',merienda:'batido',cena:null,salsa:null,postre:null,steps:0};
+let state={train:'descanso',desayuno:'completo',comida:'taper',merienda:'batido',cena:null,salsa:null,postre:null,steps:0,extraDesayuno:[],extraComida:[],extraMerienda:[],extraCena:[]};
 
 function sget(k){try{const v=localStorage.getItem(k);return v?JSON.parse(v):null;}catch(e){return null;}}
 function sset(k,v){try{localStorage.setItem(k,JSON.stringify(v));}catch(e){}}
-function dkey(d){return d.toISOString().split('T')[0];}
+function dkey(d){const y=d.getFullYear(),m=String(d.getMonth()+1).padStart(2,'0'),day=String(d.getDate()).padStart(2,'0');return `${y}-${m}-${day}`;}
 
 function goScreen(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById('screen-'+id).classList.add('active');document.getElementById('screen-'+id).scrollTop=0;}
 function goInicio(){
@@ -624,7 +701,7 @@ function goAli(){
   updateDateLabel();
   // Reload state fresh - picks up train set by finalizarEntreno
   const saved=sget('day_'+dkey(currentDate));
-  state=Object.assign({train:'descanso',desayuno:'completo',comida:'taper',merienda:'batido',cena:null,salsa:null,postre:null,steps:0},saved||{});
+  state=Object.assign({train:'descanso',desayuno:'completo',comida:'taper',merienda:'batido',cena:null,salsa:null,postre:null,steps:0,extraDesayuno:[],extraComida:[],extraMerienda:[],extraCena:[]},saved||{});
   syncUI();
   update();
 }
@@ -681,7 +758,7 @@ function changeDay(d){currentDate.setDate(currentDate.getDate()+d);updateDateLab
 
 function loadDayState(){
   const saved=sget('day_'+dkey(currentDate));
-  state=Object.assign({train:'descanso',desayuno:'completo',comida:'taper',merienda:'batido',cena:null,salsa:null,postre:null,steps:0},saved||{});
+  state=Object.assign({train:'descanso',desayuno:'completo',comida:'taper',merienda:'batido',cena:null,salsa:null,postre:null,steps:0,extraDesayuno:[],extraComida:[],extraMerienda:[],extraCena:[]},saved||{});
   syncUI();update();
 }
 
@@ -700,6 +777,83 @@ function syncUI(){
   document.getElementById('steps-slider').value=state.steps||0;
   document.getElementById('steps-display').textContent=(state.steps||0).toLocaleString('es-ES');
   document.getElementById('steps-extra-kcal').textContent='+'+(Math.round((state.steps||0)*0.04))+' kcal';
+  ['desayuno','comida','merienda','cena'].forEach(g=>{
+    const items=getExtra(g);
+    const inputs=document.getElementById('manual-inputs-'+g);
+    if(inputs)inputs.style.display=items.length>0?'block':'none';
+    renderManualItems(g);
+  });
+}
+
+function getExtra(g){
+  const key='extra'+g.charAt(0).toUpperCase()+g.slice(1);
+  if(!Array.isArray(state[key]))state[key]=[];
+  return state[key];
+}
+
+function renderManualItems(g){
+  const items=getExtra(g);
+  const container=document.getElementById('manual-items-'+g);
+  const form=document.getElementById('manual-form-'+g);
+  const more=document.getElementById('manual-more-'+g);
+  const card=document.getElementById('manual-card-'+g);
+  const disp=document.getElementById('manual-disp-'+g);
+  const prot=document.getElementById('manual-prot-'+g);
+  if(!container)return;
+  container.innerHTML=items.map((it,i)=>`<div class="manual-chip"><span class="manual-chip-name" title="${it.name||'Extra'}">${it.name||'Extra'}</span><span class="manual-chip-kcal">&nbsp;·&nbsp;${it.k||0} kcal</span><button class="manual-chip-del" onclick="removeManualItem('${g}',${i})">×</button></div>`).join('');
+  const totalK=items.reduce((s,it)=>s+(it.k||0),0);
+  const totalP=items.reduce((s,it)=>s+(it.p||0),0);
+  if(disp)disp.textContent=totalK>0?totalK+' kcal':'—';
+  if(prot)prot.textContent=totalP>0?totalP+'g prot':'—';
+  if(card){card.classList[items.length>0?'add':'remove']('sel');const nameEl=card.querySelector('.opt-name');if(nameEl)nameEl.textContent=items.length>0?items.map(it=>it.name).join(', '):'Otro';}
+  if(items.length>0){if(form)form.style.display='none';if(more)more.style.display='block';}
+  else{if(form)form.style.display='block';if(more)more.style.display='none';}
+}
+
+function toggleManual(g,el){
+  const inputs=document.getElementById('manual-inputs-'+g);
+  const items=getExtra(g);
+  const isOpen=inputs.style.display!=='none';
+  if(isOpen&&items.length===0){
+    inputs.style.display='none';
+    el.classList.remove('sel');
+  } else {
+    inputs.style.display='block';
+    renderManualItems(g);
+  }
+}
+
+function addManualItem(g){
+  const name=(document.getElementById('manual-name-'+g)?.value||'').trim()||'Extra';
+  const k=parseInt(document.getElementById('manual-k-'+g)?.value)||0;
+  const p=parseInt(document.getElementById('manual-p-'+g)?.value)||0;
+  if(k===0&&p===0)return;
+  getExtra(g).push({name,k,p});
+  const ni=document.getElementById('manual-name-'+g);
+  const ki=document.getElementById('manual-k-'+g);
+  const pi=document.getElementById('manual-p-'+g);
+  if(ni)ni.value='';if(ki)ki.value='';if(pi)pi.value='';
+  renderManualItems(g);
+  update();
+}
+
+function removeManualItem(g,idx){
+  const items=getExtra(g);
+  items.splice(idx,1);
+  if(items.length===0){
+    const inputs=document.getElementById('manual-inputs-'+g);
+    if(inputs)inputs.style.display='none';
+  }
+  renderManualItems(g);
+  update();
+}
+
+function showManualForm(g){
+  const form=document.getElementById('manual-form-'+g);
+  const more=document.getElementById('manual-more-'+g);
+  if(form)form.style.display='block';
+  if(more)more.style.display='none';
+  document.getElementById('manual-name-'+g)?.focus();
 }
 
 function selTrain(t,el){state.train=t;document.querySelectorAll('.train-opt').forEach(e=>e.classList.remove('sel'));el.classList.add('sel');update();}
@@ -712,6 +866,7 @@ function calcDay(){
   const add=(g,v)=>{if(v&&KCAL[g]&&KCAL[g][v]){const m=KCAL[g][v];k+=m.k;p+=m.p;c+=m.c;f+=m.f;}};
   add('desayuno',state.desayuno);add('comida',state.comida);add('merienda',state.merienda);
   add('cena',state.cena);add('salsa',state.salsa);add('postre',state.postre);
+  ['extraDesayuno','extraComida','extraMerienda','extraCena'].forEach(ex=>{const v=state[ex];if(Array.isArray(v)){v.forEach(it=>{k+=it.k||0;p+=it.p||0;});}else if(v&&typeof v==='object'){k+=v.k||0;p+=v.p||0;}});
   const stepsK=Math.round((state.steps||0)*0.04);
   const tdee=(TDEE_MAP[state.train]||2270)+stepsK;
   return{kcal:Math.round(k),prot:Math.round(p),carb:Math.round(c),fat:Math.round(f),tdee};

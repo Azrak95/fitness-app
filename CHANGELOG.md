@@ -113,8 +113,60 @@
 
 ---
 
+### Phase 6 — Alimentación overhaul (sesión 2)
+
+#### 6.1 — Bug fix: timezone en dkey()
+- **Bug:** `finalizarEntreno()` usaba `dkey(new Date())` (UTC) mientras `goAli()` usaba fecha local → en España (UTC+2) generaban claves distintas → el tipo de entreno nunca se reflejaba en Alimentación
+- **Fix:** `dkey()` reescrita con `getFullYear()`, `getMonth()`, `getDate()` (métodos locales)
+
+#### 6.2 — Bug fix: Entrenamiento → Alimentación sync
+- Al pulsar "Finalizar entrenamiento", el selector de entrenamiento en Alimentación no se actualizaba
+- **Fix:** `finalizarEntreno()` escribe `state.train` en memoria además de en localStorage; `goAli()` recarga el estado fresco desde localStorage
+
+#### 6.3 — Header centrado
+- Título "Alimentación" y fecha centrados (antes alineados a la izquierda)
+
+#### 6.4 — Grid entrenamiento reordenado
+- Orden nuevo: Gimnasio (top-left) · CrossFit (top-right) · Doble sesión (bottom-left) · Descanso (bottom-right)
+
+#### 6.5 — Desayuno
+- Renombrado: "Completo" → "Tostada de pavo, café con leche y plátano"
+- Valores: 369 kcal · 19g prot (calculados de ingredientes reales, sin cambios)
+
+#### 6.6 — Comida: opciones nuevas
+- Eliminadas: taper50, taper70, rapida
+- Renombrada: táper → "Lentejas con pollo y verduras" (490 kcal · 54g prot)
+- Añadidas con macros calculados de ingredientes reales (600g pollo crudo ÷3, verduras, 10g AOVE ÷3):
+  - Garbanzos con pollo y verduras: **489 kcal · 59g prot**
+  - Arroz con pollo y verduras (50g crudo): **504 kcal · 52g prot**
+  - Patata cocida con pollo y verduras (200g): **489 kcal · 53g prot**
+
+#### 6.7 — Merienda
+- Renombrada: "Batido proteína" → "Batido de proteínas con agua"
+
+#### 6.8 — Cena: wraps recalculados con datos reales de producto
+- Wrap atún: **393 kcal · 36g prot** (antes 366/33 — corrección por Havarti Light 267 kcal/100g y atún 98 kcal/100g)
+- Wrap pollo: **406 kcal · 45g prot** (antes 382/42)
+- Salsas recalculadas (QFB 0% Hacendado real = 46 kcal/100g):
+  - Rosa: **47 kcal** (antes 60) · Normal: **23 kcal** (antes 40) · Piparras/Pepinillos: **25 kcal** (antes 43-45)
+
+#### 6.9 — Postre expandido (sección renombrada "Fruta / Postre")
+- Añadidos: Manzana (78 kcal) · Plátano (107 kcal)
+- Mantenidos: Pera (85 kcal) · Sandía (90 kcal) · Sin postre
+
+#### 6.10 — Bloque "✏️ Otro" por comida (manual multi-item)
+- Disponible en Desayuno, Comida, Merienda y Cena
+- Al pulsar la tarjeta → formulario con Nombre + Kcal + Prot + botón "Añadir"
+- Cada item añadido aparece como chip verde con × para eliminar
+- La tarjeta muestra los nombres acumulados ("Pulpo, Yogur") en lugar de "Otro"
+- Botón "+ Añadir otro" para añadir múltiples items por comida
+- Estado: `extraDesayuno`, `extraComida`, `extraMerienda`, `extraCena` son arrays `[{name, k, p}]`
+- Totales se suman en tiempo real al déficit y proteína
+
+---
+
 ### Pending phases
 
-- **Phase 6:** Despensa + Compra
-- **Phase 7:** Progreso (weight graph, calendar, photos, logros)
-- **Phase 8:** General polish, resumen semanal/mensual/anual
+- **Phase 7:** Despensa + Compra
+- **Phase 8:** Progreso (weight graph, calendar, photos, logros)
+- **Phase 9:** General polish, resumen semanal/mensual/anual

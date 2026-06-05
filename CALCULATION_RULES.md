@@ -31,7 +31,7 @@ Steps add: **+0.04 kcal per step** to TDEE (applied in `calcDay()`)
 
 ## Meal macros
 
-### Desayuno completo
+### Desayuno — Tostada de pavo, café con leche y plátano
 | Component | Quantity | kcal | Prot | Carbs | Fat |
 |-----------|----------|------|------|-------|-----|
 | Pan tostado | ~80g | ~210 | 7g | 40g | 2g |
@@ -40,70 +40,95 @@ Steps add: **+0.04 kcal per step** to TDEE (applied in `calcDay()`)
 | Bebida soja (café) | ~80ml total | ~26 | 2.5g | 1g | 1.4g |
 | **TOTAL** | | **~369** | **~19g** | **~68g** | **~4g** |
 
-### Comida — Táper (sin arroz)
-Per ración (3 raciones de: 600g pollo crudo, 1 pimiento verde, 1 pimiento rojo, 3 cebollas, 3 tomates, 1 bote lentejas Hacendado 400g escurrido, 10g AOVE). Postre: manzana.
+---
 
-| Component | kcal | Prot | Carbs | Fat |
-|-----------|------|------|-------|-----|
-| Táper base | ~400 | ~51.5g | ~26g | ~8.8g |
-| Manzana ~150g | ~80 | ~0.5g | ~20g | 0g |
-| **TOTAL** | **~490** | **~53.5g** | **~48g** | **~8.8g** |
+### Comidas — Base común (todas las variedades)
 
-### Comida — Táper + arroz 50g seco
-- Base táper: 490 kcal
-- Arroz 50g seco: +~175 kcal, +38g carbs
-- **TOTAL: ~665 kcal · 61g prot · 86g carbs · 9g fat**
+Receta para **3 raciones**:
+- 600g pechuga de pollo cruda (110 kcal/100g · 23g prot/100g)
+- 3 cebollas (~300g) + 2 pimientos (~200g) + 3 tomates (~300g)
+- 10g AOVE (aceite de oliva virgen extra)
 
-### Comida — Táper + arroz 70g seco
-- Base táper: 490 kcal
-- Arroz 70g seco: +~245 kcal, +53g carbs
-- **TOTAL: ~735 kcal · 64g prot · 101g carbs · 9g fat**
+Por ración:
+- Pollo (200g crudo): 220 kcal · 46g prot
+- Verduras (267g): 79 kcal · 3g prot
+- AOVE (3.33g): 30 kcal · 0g prot
+- **Base común: 329 kcal · 49g prot**
 
-### Comida — Alternativa rápida
-- Jarred vegetables (Mercadona) + atún + huevo cocido
-- **~350 kcal · 40g prot · 20g carbs · 8g fat**
+### Comida — Lentejas con pollo y verduras
+- Base + 1 bote lentejas Hacendado 400g escurrido ÷ 3 = 133g (105 kcal/100g · 7.5g prot/100g)
+- Lentejas 133g: 140 kcal · 10g prot
+- **TOTAL: ~490 kcal · ~54g prot · ~48g carbs · ~9g fat** *(valor en uso, validado)*
 
-### Merienda — Batido proteína
+### Comida — Garbanzos con pollo y verduras
+- Base + 1 bote garbanzos Hacendado 400g escurrido ÷ 3 = 133g (120 kcal/100g · 7.5g prot/100g)
+- Garbanzos 133g: 160 kcal · 10g prot
+- **TOTAL: ~489 kcal · ~59g prot · ~42g carbs · ~8g fat**
+
+### Comida — Arroz con pollo y verduras
+- Base + 50g arroz crudo (350 kcal/100g · 7g prot/100g)
+- Arroz 50g: 175 kcal · 3.5g prot
+- **TOTAL: ~504 kcal · ~52g prot · ~54g carbs · ~5g fat**
+
+### Comida — Patata cocida con pollo y verduras
+- Base + 200g patata cocida (80 kcal/100g · 2g prot/100g)
+- Patata 200g: 160 kcal · 4g prot
+- **TOTAL: ~489 kcal · ~53g prot · ~49g carbs · ~5g fat**
+
+---
+
+### Merienda — Batido de proteínas con agua
 - 30g proteína soja aislada + agua
 - **117 kcal · 28g prot · 0.4g carbs · 0.5g fat**
 
+---
+
 ### Cena — Wrap atún
-1 tortilla avena (60g) + 1 lata atún natural (60g esc) + 1 huevo cocido + 1 loncha havarti light (25g) + verduras + sin salsa
+1 tortilla avena (60g) + 1 lata atún natural (60g esc) + 1 huevo cocido + 1 loncha havarti light (25g) + verduras
 
 | Component | kcal | Prot | Carbs | Fat |
 |-----------|------|------|-------|-----|
-| Tortilla avena 60g | 172 | 9.1g | 24g | 3.6g |
-| Atún 60g esc | 50 | 12g | 0g | 0.5g |
+| Tortilla avena 60g | 172 | 9g | 24g | 3.6g |
+| Atún 60g esc (98 kcal/100g · 21g prot/100g) | 59 | 12.6g | 0g | 0.5g |
 | Huevo cocido | 77 | 6.5g | 0.5g | 5.5g |
-| Havarti Light 25g | 52 | 4.4g | 0.1g | 3.8g |
-| Verduras ~100g | 25 | 1.5g | 4g | 0g |
-| **TOTAL sin salsa** | **~366** | **~33g** | **~29g** | **~13g** |
+| Havarti Light 25g (267 kcal/100g · 27g prot/100g) | 67 | 6.75g | 0.1g | 4.3g |
+| Verduras ~80g | 18 | 1g | 4g | 0g |
+| **TOTAL sin salsa** | **~393** | **~36g** | **~29g** | **~15g** |
 
 ### Cena — Wrap pollo
-1 tortilla avena + 90g pollo cocinado + 1 loncha havarti + verduras + sin salsa
+1 tortilla avena (60g) + 90g pollo cocinado + 1 loncha havarti light (25g) + verduras
 
 | Component | kcal | Prot | Carbs | Fat |
 |-----------|------|------|-------|-----|
-| Tortilla avena 60g | 172 | 9.1g | 24g | 3.6g |
-| Pollo 90g cocinado | 148 | 28g | 0g | 4g |
-| Havarti Light 25g | 52 | 4.4g | 0.1g | 3g |
-| Verduras ~80g | 20 | 1g | 3g | 0g |
-| **TOTAL sin salsa** | **~382** | **~42g** | **~27g** | **~11g** |
+| Tortilla avena 60g | 172 | 9g | 24g | 3.6g |
+| Pollo 90g cocinado (~165 kcal/100g · 31g prot/100g) | 149 | 28g | 0g | 4g |
+| Havarti Light 25g | 67 | 6.75g | 0.1g | 4.3g |
+| Verduras ~80g | 18 | 1g | 3g | 0g |
+| **TOTAL sin salsa** | **~406** | **~45g** | **~28g** | **~12g** |
+
+---
 
 ### Salsas
-| Salsa | Ingredients | kcal | Prot |
-|-------|------------|------|------|
-| Rosa | 50g QFB 0% + 5g mostaza Dijon + 20g ketchup zero | ~60 | ~5g |
-| Normal | 50g QFB 0% + especias | ~40 | ~4g |
-| Piparras | Normal + 10g piparras | ~45 | ~4g |
-| Pepinillos | Normal + 15g pepinillos | ~43 | ~4g |
+Base: 50g Queso Fresco Batido 0% Hacendado (46 kcal/100g · 8g prot/100g)
+
+| Salsa | Ingredientes | kcal | Prot |
+|-------|-------------|------|------|
+| Normal | 50g QFB 0% + especias | **~23** | **~4g** |
+| Rosa | QFB + 5g mostaza Dijon (148 kcal/100g) + 20g ketchup zero (82 kcal/100g) | **~47** | **~5g** |
+| Piparras | Normal + 10g piparras | **~25** | **~4g** |
+| Pepinillos | Normal + 15g pepinillos | **~25** | **~4g** |
 | Sin salsa | — | 0 | 0 |
 
-### Postres cena
+---
+
+### Fruta / Postre
 | Postre | kcal | Prot |
 |--------|------|------|
-| Sandía ~300g | ~90 | ~1.5g |
-| Pera ~170g | ~85 | ~0.5g |
+| Manzana ~150g | ~78 | ~0g |
+| Pera ~170g | ~85 | ~1g |
+| Sandía ~300g | ~90 | ~2g |
+| Plátano ~120g | ~107 | ~1g |
+| Sin postre | 0 | 0 |
 
 ---
 
@@ -115,23 +140,12 @@ Per ración (3 raciones de: 600g pollo crudo, 1 pimiento verde, 1 pimiento rojo,
 | Bebida soja Hacendado | 100ml | 32 | 3.1g | 0.9g | 1.7g |
 | Proteína soja aislada | 30g (1 scoop) | 117 | 28g | 0.4g | 0.5g |
 | Tortilla avena 51% Hacendado | 60g (1 ud) | 172 | 9.1g | 24g | 3.6g |
-| Atún al natural | 60g escurrido | ~50 | 12g | 0g | 0.5g |
-| Havarti Light Hacendado | 25g (1 loncha) | 52 | 4.4g | 0.1g | 3.8g |
+| Atún al natural | 60g escurrido | ~59 | ~12.6g | 0g | ~0.5g |
+| Havarti Light Hacendado | 25g (1 loncha) | 67 | 6.75g | 0.1g | 4.3g |
 | Queso fresco batido 0% Hacendado | 100g | 46 | 8g | 3.5g | <0.5g |
-| Mostaza Dijon | 100g | 149 | 7.2g | 13g | 11g |
-| Ketchup zero | 100g | 83 | 1.7g | 17.8g | 0g |
-
----
-
-## Rice rules (arroz aparte del táper)
-
-| Day type | Rice amount (dry) | Added kcal |
-|----------|------------------|------------|
-| Rest day | 0g | 0 |
-| Single session (gym or CF) | ~50g | ~175 kcal |
-| Double session (Fri: gym + CF) | ~70g | ~245 kcal |
-
-Rice is NOT included in the táper. It is added separately based on the day.
+| Mostaza Dijon | 100g | 148 | 7.2g | 13g | 11g |
+| Ketchup zero | 100g | 82 | 1.7g | 17.8g | 0g |
+| AOVE | 100g | 884 | 0g | 0g | 100g |
 
 ---
 
@@ -172,7 +186,7 @@ Rice is NOT included in the táper. It is added separately based on the day.
 
 | Key | Type | Description |
 |-----|------|-------------|
-| `day_YYYY-MM-DD` | Object | Full day state (train, meals, steps) |
+| `day_YYYY-MM-DD` | Object | Full day state (train, meals, steps, extraX arrays) |
 | `week_log` | Object | Per-day summary {kcal, prot, tdee, def, train} |
 | `train_log` | Object | Per-day workout label for dashboard |
 | `last_rutina` | Number | 1 or 2 — last gym rutina done |
@@ -182,3 +196,22 @@ Rice is NOT included in the táper. It is added separately based on the day.
 | `gym_pr_w_R_i` | String | All-time PR weight for rutina R, exercise i |
 | `gym_delta_R_i` | Object | {dir, text} — rep delta badge for today |
 | `cf_logros` | Array | CrossFit logros [{id, text, date}] |
+
+## State shape (in-memory)
+
+```js
+state = {
+  train: 'descanso' | 'gym' | 'crossfit' | 'doble',
+  desayuno: 'completo' | 'nada',
+  comida: 'taper' | 'garbanzos' | 'arroz' | 'patata' | 'nada',
+  merienda: 'batido' | 'nada',
+  cena: 'atun' | 'pollo' | 'nada' | null,
+  salsa: 'rosa' | 'normal' | 'piparras' | 'pepinillos' | 'sin' | null,
+  postre: 'manzana' | 'pera' | 'sandia' | 'platano' | 'sin' | null,
+  steps: Number,
+  extraDesayuno: [{name, k, p}],
+  extraComida:   [{name, k, p}],
+  extraMerienda: [{name, k, p}],
+  extraCena:     [{name, k, p}]
+}
+```
