@@ -2030,21 +2030,24 @@ function playBeep(freq,dur){
   if(cronoMuted)return;
   try{
     const ctx=getAudioCtx();
-    if(ctx.state==='suspended')return;
-    const o=ctx.createOscillator();
-    const g=ctx.createGain();
-    o.connect(g);g.connect(ctx.destination);
-    o.frequency.value=freq;
-    o.type='sine';
-    g.gain.setValueAtTime(0.4,ctx.currentTime);
-    g.gain.exponentialRampToValueAtTime(0.001,ctx.currentTime+dur);
-    o.start(ctx.currentTime);
-    o.stop(ctx.currentTime+dur);
+    const play=()=>{
+      const o=ctx.createOscillator();
+      const g=ctx.createGain();
+      o.connect(g);g.connect(ctx.destination);
+      o.frequency.value=freq;
+      o.type='sine';
+      g.gain.setValueAtTime(0.4,ctx.currentTime);
+      g.gain.exponentialRampToValueAtTime(0.001,ctx.currentTime+dur);
+      o.start(ctx.currentTime);
+      o.stop(ctx.currentTime+dur);
+    };
+    if(ctx.state==='suspended'){ctx.resume().then(play);}else{play();}
   }catch(e){}
 }
 
 function cronoStart(){
   if(cronoRunning)return;
+  getAudioCtx();
   cronoRunning=true;
   document.getElementById('crono-btn').textContent='⏸';
   cronoInterval=setInterval(()=>{
