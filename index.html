@@ -771,10 +771,12 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:22px;heigh
       <div id="entreno-progress-bar" style="height:100%;width:0%;background:var(--green);border-radius:3px;transition:width 0.4s cubic-bezier(0.4,0,0.2,1);"></div>
     </div>
   </div>
-  <div id="gym-exercises" style="margin:0 0 200px;"></div>
-  <div style="position:fixed;bottom:calc(var(--nav-h) + var(--safe-bottom) + 10px);left:0;right:0;padding:0 16px;z-index:50;">
-    <button class="save-btn" id="btn-finalizar" onclick="finalizarEntreno()" style="width:100%;">Finalizar entrenamiento</button>
-  </div>
+  <div id="gym-exercises" style="margin:0 0 120px;"></div>
+</div>
+
+<!-- BOTÓN FINALIZAR (fuera del screen para que position:fixed funcione en iOS) -->
+<div id="finalizar-wrap" style="display:none;position:fixed;bottom:calc(var(--safe-bottom) + 10px);left:0;right:0;padding:0 16px;z-index:50;">
+  <button class="save-btn" id="btn-finalizar" onclick="finalizarEntreno()" style="width:100%;">Finalizar entrenamiento</button>
 </div>
 
 <!-- CRONÓMETRO FLOTANTE -->
@@ -842,7 +844,7 @@ function sget(k){try{const v=localStorage.getItem(k);return v?JSON.parse(v):null
 function sset(k,v){try{localStorage.setItem(k,JSON.stringify(v));}catch(e){}}
 function dkey(d){const y=d.getFullYear(),m=String(d.getMonth()+1).padStart(2,'0'),day=String(d.getDate()).padStart(2,'0');return `${y}-${m}-${day}`;}
 
-function goScreen(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById('screen-'+id).classList.add('active');document.getElementById('screen-'+id).scrollTop=0;}
+function goScreen(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById('screen-'+id).classList.add('active');document.getElementById('screen-'+id).scrollTop=0;const fw=document.getElementById('finalizar-wrap');if(fw)fw.style.display=id==='entreno'?'block':'none';}
 function goInicio(){
   const old=document.getElementById('cf-input-fixed');
   if(old) old.remove();
