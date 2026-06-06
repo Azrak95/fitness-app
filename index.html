@@ -775,7 +775,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:22px;heigh
 </div>
 
 <!-- BOTÓN FINALIZAR (fuera del screen para que position:fixed funcione en iOS) -->
-<div id="finalizar-wrap" style="display:none;position:fixed;bottom:calc(var(--safe-bottom) + 10px);left:0;right:0;padding:0 16px;z-index:50;">
+<div id="finalizar-wrap" style="display:none;position:fixed;bottom:0;left:0;right:0;padding:10px 16px calc(var(--safe-bottom) + 10px);background:var(--bg);z-index:50;">
   <button class="save-btn" id="btn-finalizar" onclick="finalizarEntreno()" style="width:100%;">Finalizar entrenamiento</button>
 </div>
 
