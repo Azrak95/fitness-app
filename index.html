@@ -2163,6 +2163,7 @@ function tickClock(){
 tickClock();
 setInterval(tickClock,1000);
 updateComprabadge();
+if('serviceWorker' in navigator){navigator.serviceWorker.register('./sw.js');}
 </script>
 </body>
 </html>
