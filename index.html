@@ -2018,10 +2018,19 @@ function toggleCronoAuto(){
 function cronoFormat(s){const m=Math.floor(s/60);const ss=s%60;return m+':'+(ss<10?'0':'')+ss;}
 function cronoDisplay(){document.getElementById('crono-display').textContent=cronoFormat(cronoRemaining);}
 
+let _audioCtx=null;
+function getAudioCtx(){
+  if(!_audioCtx)_audioCtx=new(window.AudioContext||window.webkitAudioContext)();
+  if(_audioCtx.state==='suspended')_audioCtx.resume();
+  return _audioCtx;
+}
+document.addEventListener('touchstart',function unlock(){getAudioCtx();document.removeEventListener('touchstart',unlock);},{once:true,passive:true});
+
 function playBeep(freq,dur){
   if(cronoMuted)return;
   try{
-    const ctx=new(window.AudioContext||window.webkitAudioContext)();
+    const ctx=getAudioCtx();
+    if(ctx.state==='suspended')return;
     const o=ctx.createOscillator();
     const g=ctx.createGain();
     o.connect(g);g.connect(ctx.destination);
