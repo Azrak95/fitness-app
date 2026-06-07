@@ -344,14 +344,13 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:22px;heigh
 /* ── PERFILES ─────────────────────────────────────────── */
 /* ONBOARDING */
 .onb-screen{min-height:100%;display:flex;flex-direction:column;background:var(--bg);}
-.onb-hero{background:var(--text);padding:calc(var(--safe-top)+28px) 24px 32px;position:relative;overflow:hidden;display:flex;flex-direction:column;align-items:center;text-align:center;}
+.onb-hero{background:var(--bg);padding:calc(var(--safe-top)+40px) 24px 24px;position:relative;overflow:hidden;display:flex;flex-direction:column;align-items:center;text-align:center;}
 .onb-hero-swoosh{position:absolute;inset:0;pointer-events:none;z-index:0;}
 .onb-hero-content{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;}
-.onb-icon{width:70px;height:70px;border-radius:18px;margin-bottom:14px;box-shadow:0 8px 24px rgba(0,0,0,0.35);}
-.onb-logo{font-family:var(--font-display);font-size:48px;letter-spacing:3px;color:#fff;line-height:1;}
-.onb-sub{font-size:13px;color:rgba(255,255,255,0.45);margin-top:8px;font-weight:500;max-width:280px;}
-.onb-form{padding:24px 20px calc(var(--safe-bottom)+32px);display:flex;flex-direction:column;gap:18px;}
-.onb-field{display:flex;flex-direction:column;gap:7px;}
+.onb-icon{width:88px;height:88px;border-radius:22px;margin-bottom:16px;box-shadow:0 8px 28px rgba(0,0,0,0.18);}
+.onb-sub{font-size:14px;color:var(--text2);margin-top:0;font-weight:500;max-width:260px;line-height:1.5;}
+.onb-form{padding:20px 24px calc(var(--safe-bottom)+36px);display:flex;flex-direction:column;gap:20px;}
+.onb-field{display:flex;flex-direction:column;gap:8px;}
 .onb-label{font-size:11px;font-weight:800;letter-spacing:0.10em;text-transform:uppercase;color:var(--text3);}
 .onb-input{width:100%;padding:14px 16px;border:1.5px solid var(--border2);border-radius:var(--radius-sm);font-size:16px;font-family:var(--font);background:var(--bg2);color:var(--text);outline:none;-webkit-appearance:none;box-shadow:0 1px 4px rgba(0,0,0,0.05);}
 .onb-input:focus{border-color:var(--green);}
@@ -359,18 +358,18 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:22px;heigh
 .onb-sex-btn{flex:1;padding:15px 8px;border:1.5px solid var(--border2);border-radius:var(--radius-sm);font-size:15px;font-weight:700;background:var(--bg2);cursor:pointer;text-align:center;transition:all 0.15s;color:var(--text2);box-shadow:0 1px 4px rgba(0,0,0,0.05);font-family:var(--font);}
 .onb-sex-btn.sel{border-color:var(--green);background:var(--green-dim);color:var(--green);}
 .onb-triple{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;}
-.onb-input-wrap{display:flex;flex-direction:column;gap:5px;}
-.onb-goal-btn{flex:1;padding:12px 6px;border:1.5px solid var(--border2);border-radius:var(--radius-sm);font-size:11px;font-weight:700;background:var(--bg2);cursor:pointer;text-align:center;color:var(--text2);transition:all 0.15s;line-height:1.4;box-shadow:0 1px 4px rgba(0,0,0,0.05);font-family:var(--font);}
+.onb-input-wrap{display:flex;flex-direction:column;gap:6px;}
+.onb-goal-btn{flex:1;padding:13px 6px;border:1.5px solid var(--border2);border-radius:var(--radius-sm);font-size:11px;font-weight:700;background:var(--bg2);cursor:pointer;text-align:center;color:var(--text2);transition:all 0.15s;line-height:1.4;box-shadow:0 1px 4px rgba(0,0,0,0.05);font-family:var(--font);}
 .onb-goal-btn.sel{border-color:var(--green);background:var(--green-dim);color:var(--green);}
 .onb-submit{width:100%;padding:17px;background:var(--text);color:#fff;border:none;border-radius:var(--radius-sm);font-size:16px;font-weight:800;letter-spacing:0.08em;text-transform:uppercase;cursor:pointer;font-family:var(--font);box-shadow:0 4px 16px rgba(0,0,0,0.15);}
 /* SELECT PROFILE */
 .sel-screen{min-height:100%;display:flex;flex-direction:column;background:var(--bg);}
-.sel-hero{background:var(--text);padding:calc(var(--safe-top)+24px) 24px 28px;position:relative;overflow:hidden;}
+.sel-hero{background:var(--bg);padding:calc(var(--safe-top)+32px) 24px 24px;position:relative;overflow:hidden;}
 .sel-hero-swoosh{position:absolute;inset:0;pointer-events:none;z-index:0;}
 .sel-hero-content{position:relative;z-index:1;text-align:center;}
-.sel-title{font-family:var(--font-display);font-size:44px;letter-spacing:3px;color:#fff;text-align:center;}
-.sel-sub{font-size:13px;color:rgba(255,255,255,0.45);text-align:center;margin-top:6px;font-weight:500;}
-.sel-list{padding:20px 16px calc(var(--safe-bottom)+20px);}
+.sel-title{font-family:var(--font-display);font-size:44px;letter-spacing:3px;color:var(--text);text-align:center;}
+.sel-sub{font-size:13px;color:var(--text3);text-align:center;margin-top:6px;font-weight:500;}
+.sel-list{padding:8px 24px calc(var(--safe-bottom)+24px);}
 .sel-card{display:flex;align-items:center;background:var(--bg2);border:0.5px solid var(--border);border-radius:var(--radius-sm);padding:16px;margin-bottom:10px;cursor:pointer;gap:14px;transition:all 0.15s;box-shadow:0 2px 8px rgba(0,0,0,0.06);}
 .sel-card:active{transform:scale(0.98);}
 .sel-avatar{width:46px;height:46px;border-radius:50%;background:var(--green-dim);border:2px solid var(--green);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;}
@@ -835,22 +834,14 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:22px;heigh
   <div class="onb-screen">
     <div class="onb-hero">
       <svg class="onb-hero-swoosh" viewBox="0 0 400 200" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <linearGradient id="onbsw1" x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%" style="stop-color:#93c5fd;stop-opacity:0"/>
-            <stop offset="50%" style="stop-color:#93c5fd;stop-opacity:0.3"/>
-            <stop offset="100%" style="stop-color:#3b82f6;stop-opacity:0.1"/>
-          </linearGradient>
-        </defs>
-        <path d="M-40,140 C60,40 180,160 320,60 S420,10 480,80" stroke="url(#onbsw1)" stroke-width="2" fill="none"/>
-        <path d="M-20,170 C80,80 200,180 340,90 S440,40 500,110" stroke="#93c5fd" stroke-width="1" fill="none" opacity="0.15"/>
-        <circle cx="314" cy="62" r="3" fill="#3b82f6" opacity="0.3"/>
-        <circle cx="314" cy="62" r="7" fill="#3b82f6" opacity="0.1"/>
+        <path d="M-40,140 C60,40 180,160 320,60 S420,10 480,80" stroke="#93c5fd" stroke-width="2" fill="none" opacity="0.35"/>
+        <path d="M-20,170 C80,80 200,180 340,90 S440,40 500,110" stroke="#93c5fd" stroke-width="1" fill="none" opacity="0.18"/>
+        <circle cx="314" cy="62" r="3" fill="#3b82f6" opacity="0.2"/>
+        <circle cx="314" cy="62" r="7" fill="#3b82f6" opacity="0.07"/>
       </svg>
       <div class="onb-hero-content">
         <img class="onb-icon" src="icon.png" alt="AzkFit">
-        <div class="onb-logo">AZKFIT</div>
-        <div class="onb-sub">Cuéntanos sobre ti para personalizar tu experiencia</div>
+        <div class="onb-sub">Cuéntanos sobre ti para personalizar<br>tu experiencia</div>
       </div>
     </div>
     <div class="onb-form">
