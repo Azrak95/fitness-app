@@ -340,6 +340,44 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:22px;heigh
 .rep-delta-up{font-size:10px;background:var(--green-dim);color:var(--green);padding:3px 8px;border-radius:20px;font-weight:700;border:1px solid var(--green);}
 .rep-delta-down{font-size:10px;background:var(--red-dim);color:var(--red);padding:3px 8px;border-radius:20px;font-weight:700;border:1px solid var(--red);}
 .badge-row{display:flex;flex-wrap:wrap;gap:5px;margin-top:6px;padding:0 0 2px;}
+
+/* ── PERFILES ─────────────────────────────────────────── */
+.onb-screen{min-height:100%;display:flex;flex-direction:column;padding:calc(var(--safe-top)+32px) 24px calc(var(--safe-bottom)+32px);background:var(--bg);}
+.onb-logo{font-family:var(--font-display);font-size:52px;letter-spacing:3px;color:var(--text);text-align:center;margin-bottom:4px;}
+.onb-sub{font-size:13px;color:var(--text3);text-align:center;margin-bottom:32px;font-weight:500;}
+.onb-field{margin-bottom:18px;}
+.onb-label{font-size:11px;font-weight:800;letter-spacing:0.08em;text-transform:uppercase;color:var(--text3);margin-bottom:6px;}
+.onb-input{width:100%;padding:13px 14px;border:1.5px solid var(--border2);border-radius:var(--radius-sm);font-size:15px;font-family:var(--font);background:var(--bg2);color:var(--text);outline:none;-webkit-appearance:none;}
+.onb-input:focus{border-color:var(--green);}
+.onb-row{display:flex;gap:10px;}
+.onb-sex-btn{flex:1;padding:13px 8px;border:1.5px solid var(--border2);border-radius:var(--radius-sm);font-size:22px;background:var(--bg2);cursor:pointer;text-align:center;transition:all 0.15s;}
+.onb-sex-btn.sel{border-color:var(--green);background:var(--green-dim);}
+.onb-goal-btn{flex:1;padding:10px 6px;border:1.5px solid var(--border2);border-radius:var(--radius-sm);font-size:11px;font-weight:700;background:var(--bg2);cursor:pointer;text-align:center;color:var(--text2);transition:all 0.15s;line-height:1.3;}
+.onb-goal-btn.sel{border-color:var(--green);background:var(--green-dim);color:var(--green);}
+.onb-submit{width:100%;padding:16px;background:var(--text);color:#fff;border:none;border-radius:var(--radius-sm);font-size:15px;font-weight:800;letter-spacing:0.08em;text-transform:uppercase;cursor:pointer;font-family:var(--font);margin-top:8px;}
+
+.sel-screen{min-height:100%;display:flex;flex-direction:column;padding:calc(var(--safe-top)+40px) 24px calc(var(--safe-bottom)+32px);background:var(--bg);}
+.sel-title{font-family:var(--font-display);font-size:36px;letter-spacing:2px;text-align:center;margin-bottom:6px;}
+.sel-sub{font-size:13px;color:var(--text3);text-align:center;margin-bottom:28px;font-weight:500;}
+.sel-card{display:flex;align-items:center;background:var(--bg2);border:1.5px solid var(--border);border-radius:var(--radius-sm);padding:16px;margin-bottom:10px;cursor:pointer;gap:14px;transition:all 0.15s;}
+.sel-card:active{transform:scale(0.98);}
+.sel-avatar{width:44px;height:44px;border-radius:50%;background:var(--green-dim);border:2px solid var(--green);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;}
+.sel-info{flex:1;}
+.sel-name{font-size:17px;font-weight:800;color:var(--text);}
+.sel-detail{font-size:12px;color:var(--text3);margin-top:2px;}
+.sel-add{width:100%;padding:14px;background:none;border:1.5px dashed var(--border2);border-radius:var(--radius-sm);font-size:14px;font-weight:700;color:var(--text3);cursor:pointer;margin-top:6px;font-family:var(--font);}
+
+.profile-btn{position:absolute;top:calc(var(--safe-top)+12px);right:16px;background:rgba(255,255,255,0.18);border:1.5px solid rgba(255,255,255,0.25);border-radius:50%;width:38px;height:38px;display:flex;align-items:center;justify-content:center;font-size:18px;cursor:pointer;z-index:10;}
+.profile-overlay{display:none;position:fixed;inset:0;z-index:300;background:rgba(0,0,0,0.4);}
+.profile-overlay.open{display:block;}
+.profile-sheet{position:absolute;bottom:0;left:0;right:0;background:var(--bg2);border-radius:var(--radius) var(--radius) 0 0;padding:20px 20px calc(var(--safe-bottom)+20px);}
+.profile-sheet-handle{width:36px;height:4px;background:var(--bg5);border-radius:2px;margin:0 auto 16px;}
+.profile-sheet-name{font-size:18px;font-weight:800;margin-bottom:4px;}
+.profile-sheet-detail{font-size:12px;color:var(--text3);margin-bottom:20px;}
+.profile-menu-item{display:flex;align-items:center;gap:12px;padding:14px 0;border-bottom:0.5px solid var(--border);cursor:pointer;font-size:15px;font-weight:600;color:var(--text);}
+.profile-menu-item:last-child{border-bottom:none;}
+.profile-menu-item.danger{color:var(--red);}
+.profile-menu-icon{font-size:20px;width:28px;text-align:center;}
 </style>
 </head>
 <body>
@@ -373,9 +411,10 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:22px;heigh
       <circle cx="310" cy="82" r="8" fill="#3b82f6" opacity="0.08"/>
     </svg>
 
+    <button class="profile-btn" onclick="openProfileMenu()">👤</button>
     <div class="hero-content">
       <div class="inicio-greeting" id="inicio-greeting">Buenos días</div>
-      <div class="inicio-name">Monir</div>
+      <div class="inicio-name" id="inicio-name">—</div>
       <div class="inicio-sub" id="inicio-sub">Registra tu día en Alimentación</div>
       <div class="inicio-date" id="inicio-date"></div>
       <div class="inicio-clock" id="inicio-clock"></div>
@@ -542,10 +581,10 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:22px;heigh
   <div class="train-card">
     <div style="font-size:13px;color:var(--text2);font-weight:600;">¿Qué has hecho hoy?</div>
     <div class="train-grid">
-      <div class="train-opt" onclick="selTrain('gym',this)"><div class="train-emoji">🏋️</div><div class="train-name">Gimnasio</div><div class="train-tdee">~2.600 kcal</div></div>
-      <div class="train-opt" onclick="selTrain('crossfit',this)"><div class="train-emoji">⚡</div><div class="train-name">CrossFit</div><div class="train-tdee">~2.600 kcal</div></div>
-      <div class="train-opt" onclick="selTrain('doble',this)"><div class="train-emoji">🔥</div><div class="train-name">Doble sesión</div><div class="train-tdee">~2.770 kcal</div></div>
-      <div class="train-opt" onclick="selTrain('descanso',this)"><div class="train-emoji">😴</div><div class="train-name">Descanso</div><div class="train-tdee">~2.270 kcal</div></div>
+      <div class="train-opt" onclick="selTrain('gym',this)"><div class="train-emoji">🏋️</div><div class="train-name">Gimnasio</div><div class="train-tdee" id="tdee-gym">— kcal</div></div>
+      <div class="train-opt" onclick="selTrain('crossfit',this)"><div class="train-emoji">⚡</div><div class="train-name">CrossFit</div><div class="train-tdee" id="tdee-crossfit">— kcal</div></div>
+      <div class="train-opt" onclick="selTrain('doble',this)"><div class="train-emoji">🔥</div><div class="train-name">Doble sesión</div><div class="train-tdee" id="tdee-doble">— kcal</div></div>
+      <div class="train-opt" onclick="selTrain('descanso',this)"><div class="train-emoji">😴</div><div class="train-name">Descanso</div><div class="train-tdee" id="tdee-descanso">— kcal</div></div>
     </div>
   </div>
   </div>
@@ -779,6 +818,70 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:22px;heigh
   <button class="save-btn" id="btn-finalizar" onclick="finalizarEntreno()" style="width:100%;margin:0;">Finalizar entrenamiento</button>
 </div>
 
+<!-- PANTALLA ONBOARDING -->
+<div class="screen" id="screen-onboarding">
+  <div class="onb-screen">
+    <div class="onb-logo">AZKFIT</div>
+    <div class="onb-sub">Cuéntanos sobre ti para personalizar tu experiencia</div>
+    <div class="onb-field">
+      <div class="onb-label">Nombre</div>
+      <input class="onb-input" id="onb-name" type="text" placeholder="Tu nombre" autocomplete="off">
+    </div>
+    <div class="onb-field">
+      <div class="onb-label">Sexo</div>
+      <div class="onb-row">
+        <button class="onb-sex-btn" id="onb-sex-m" onclick="onbSelSex('m')">♂️ Hombre</button>
+        <button class="onb-sex-btn" id="onb-sex-f" onclick="onbSelSex('f')">♀️ Mujer</button>
+      </div>
+    </div>
+    <div class="onb-field">
+      <div class="onb-row">
+        <div style="flex:1;">
+          <div class="onb-label">Edad</div>
+          <input class="onb-input" id="onb-age" type="number" placeholder="años" min="10" max="99">
+        </div>
+        <div style="flex:1;">
+          <div class="onb-label">Peso (kg)</div>
+          <input class="onb-input" id="onb-weight" type="number" placeholder="kg" min="30" max="250" step="0.1">
+        </div>
+        <div style="flex:1;">
+          <div class="onb-label">Altura (cm)</div>
+          <input class="onb-input" id="onb-height" type="number" placeholder="cm" min="100" max="250">
+        </div>
+      </div>
+    </div>
+    <div class="onb-field">
+      <div class="onb-label">Objetivo</div>
+      <div class="onb-row">
+        <button class="onb-goal-btn" id="onb-goal-loss" onclick="onbSelGoal('loss')">🔥 Perder grasa</button>
+        <button class="onb-goal-btn" id="onb-goal-maintain" onclick="onbSelGoal('maintain')">⚖️ Mantener</button>
+        <button class="onb-goal-btn" id="onb-goal-gain" onclick="onbSelGoal('gain')">💪 Ganar músculo</button>
+      </div>
+    </div>
+    <button class="onb-submit" onclick="onbSubmit()">Empezar →</button>
+  </div>
+</div>
+
+<!-- PANTALLA SELECCIÓN DE PERFIL -->
+<div class="screen" id="screen-select-profile">
+  <div class="sel-screen">
+    <div class="sel-title">¿QUIÉN ERES?</div>
+    <div class="sel-sub">Selecciona tu perfil para continuar</div>
+    <div id="sel-profiles-list"></div>
+    <button class="sel-add" onclick="goOnboarding()">+ Añadir nuevo perfil</button>
+  </div>
+</div>
+
+<!-- OVERLAY GESTIÓN DE PERFIL -->
+<div class="profile-overlay" id="profile-overlay" onclick="closeProfileMenu()">
+  <div class="profile-sheet" onclick="event.stopPropagation()">
+    <div class="profile-sheet-handle"></div>
+    <div class="profile-sheet-name" id="pmenu-name"></div>
+    <div class="profile-sheet-detail" id="pmenu-detail"></div>
+    <div id="pmenu-items"></div>
+  </div>
+</div>
+
 <!-- CRONÓMETRO FLOTANTE -->
 <div id="cronometro" style="display:none;position:fixed;bottom:calc(var(--nav-h) + var(--safe-bottom) + 70px);right:16px;z-index:60;background:#1a1a1a;border-radius:16px;padding:12px 16px;box-shadow:0 8px 32px rgba(0,0,0,0.2);min-width:130px;text-align:center;transition:background 0.3s;user-select:none;touch-action:none;">
   <!-- Drag handle -->
@@ -832,7 +935,7 @@ const KCAL={
   postre:{manzana:{k:78,p:0,c:20,f:0},pera:{k:85,p:1,c:22,f:0},sandia:{k:90,p:2,c:22,f:1},platano:{k:107,p:1,c:27,f:0},sin:{k:0,p:0,c:0,f:0}},
   postrecomi:{manzana:{k:78,p:0,c:20,f:0},pera:{k:85,p:1,c:22,f:0},sandia:{k:90,p:2,c:22,f:1},platano:{k:107,p:1,c:27,f:0},sin:{k:0,p:0,c:0,f:0}}
 };
-const TDEE_MAP={descanso:2270,gym:2600,crossfit:2600,doble:2770};
+let TDEE_MAP={descanso:2270,gym:2600,crossfit:2600,doble:2770};
 const TRAIN_LABEL={descanso:'Descanso',gym:'Gimnasio',crossfit:'CrossFit',doble:'Doble sesión'};
 const DIAS_FULL=['Domingo','Lunes','Martes','Miércoles','Jueves','Viernes','Sábado'];
 const MESES=['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
@@ -840,8 +943,12 @@ const MESES=['enero','febrero','marzo','abril','mayo','junio','julio','agosto','
 let currentDate=new Date();currentDate.setHours(0,0,0,0);
 let state={train:'descanso',desayuno:'completo',comida:'taper',merienda:'batido',cena:null,salsa:null,postre:null,postrecomi:null,steps:0,extraDesayuno:[],extraComida:[],extraMerienda:[],extraCena:[]};
 
-function sget(k){try{const v=localStorage.getItem(k);return v?JSON.parse(v):null;}catch(e){return null;}}
-function sset(k,v){try{localStorage.setItem(k,JSON.stringify(v));}catch(e){}}
+let currentProfileId=null;
+function _pk(k){return currentProfileId?currentProfileId+'_'+k:k;}
+function sget(k){try{const v=localStorage.getItem(_pk(k));return v?JSON.parse(v):null;}catch(e){return null;}}
+function sset(k,v){try{localStorage.setItem(_pk(k),JSON.stringify(v));}catch(e){}}
+function sglobal(k){try{const v=localStorage.getItem(k);return v?JSON.parse(v):null;}catch(e){return null;}}
+function ssglobal(k,v){try{localStorage.setItem(k,JSON.stringify(v));}catch(e){}}
 function dkey(d){const y=d.getFullYear(),m=String(d.getMonth()+1).padStart(2,'0'),day=String(d.getDate()).padStart(2,'0');return `${y}-${m}-${day}`;}
 
 function goScreen(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById('screen-'+id).classList.add('active');document.getElementById('screen-'+id).scrollTop=0;const fw=document.getElementById('finalizar-wrap');if(fw)fw.style.display=id==='entreno'?'block':'none';}
@@ -859,7 +966,8 @@ function goInicio(){
     const dx=e.changedTouches[0].clientX-sx;
     const dy=Math.abs(e.changedTouches[0].clientY-sy);
     const active=document.querySelector('.screen.active');
-    if(sx<40&&dx>80&&dy<60&&active&&active.id!=='screen-inicio'){goInicio();}
+    const noSwipe=['screen-inicio','screen-onboarding','screen-select-profile'];
+    if(sx<40&&dx>80&&dy<60&&active&&!noSwipe.includes(active.id)){goInicio();}
   },{passive:true});
 })();
 function goAli(){
@@ -2180,7 +2288,7 @@ function cronoAdjust(delta){
   document.addEventListener('touchend',endDrag);
 })();
 
-updateInicio();
+initApp();
 function tickClock(){
   const now=new Date();
   const h=String(now.getHours()).padStart(2,'0');
@@ -2193,6 +2301,200 @@ tickClock();
 setInterval(tickClock,1000);
 updateComprabadge();
 if('serviceWorker' in navigator){navigator.serviceWorker.register('./sw.js');}
+
+// ── SISTEMA DE PERFILES ──────────────────────────────────
+
+function getProfiles(){return sglobal('profiles')||[];}
+function setProfiles(arr){ssglobal('profiles',arr);}
+
+function calcTMB(p){
+  return p.sex==='f'
+    ? 10*p.weight + 6.25*p.height - 5*p.age - 161
+    : 10*p.weight + 6.25*p.height - 5*p.age + 5;
+}
+
+function calcTDEEMap(p){
+  const tmb=calcTMB(p);
+  return{
+    descanso:Math.round(tmb*1.35),
+    gym:Math.round(tmb*1.55),
+    crossfit:Math.round(tmb*1.55),
+    doble:Math.round(tmb*1.65)
+  };
+}
+
+function loadProfile(id){
+  currentProfileId=id;
+  ssglobal('current_profile_id',id);
+  const p=getProfiles().find(x=>x.id===id);
+  if(!p)return;
+  TDEE_MAP=calcTDEEMap(p);
+  // Actualizar etiquetas TDEE en UI de entrenamiento
+  ['gym','crossfit','doble','descanso'].forEach(t=>{
+    const el=document.getElementById('tdee-'+t);
+    if(el)el.textContent='~'+TDEE_MAP[t].toLocaleString('es-ES')+' kcal';
+  });
+  // Nombre en inicio
+  const nameEl=document.getElementById('inicio-name');
+  if(nameEl)nameEl.textContent=p.name;
+}
+
+function initApp(){
+  const profiles=getProfiles();
+  if(profiles.length===0){
+    goScreen('onboarding');
+    return;
+  }
+  if(profiles.length===1){
+    loadProfile(profiles[0].id);
+    goInicio();
+    return;
+  }
+  // 2+ perfiles: intentar cargar el último usado
+  const lastId=sglobal('current_profile_id');
+  const last=profiles.find(p=>p.id===lastId);
+  if(last){loadProfile(last.id);goInicio();return;}
+  renderProfileSelect();
+  goScreen('select-profile');
+}
+
+// ── ONBOARDING ───────────────────────────────────────────
+let _onbSex=null,_onbGoal=null;
+
+function onbSelSex(s){
+  _onbSex=s;
+  document.getElementById('onb-sex-m').classList.toggle('sel',s==='m');
+  document.getElementById('onb-sex-f').classList.toggle('sel',s==='f');
+}
+
+function onbSelGoal(g){
+  _onbGoal=g;
+  ['loss','maintain','gain'].forEach(x=>document.getElementById('onb-goal-'+x).classList.toggle('sel',x===g));
+}
+
+function onbSubmit(){
+  const name=document.getElementById('onb-name').value.trim();
+  const age=parseInt(document.getElementById('onb-age').value);
+  const weight=parseFloat(document.getElementById('onb-weight').value);
+  const height=parseInt(document.getElementById('onb-height').value);
+  if(!name||!_onbSex||!_onbGoal||!age||!weight||!height){
+    showToast('Rellena todos los campos');return;
+  }
+  const id=name.toLowerCase().replace(/\s+/g,'_')+'_'+Date.now();
+  const profile={id,name,sex:_onbSex,age,weight,height,goal:_onbGoal};
+  const profiles=getProfiles();
+  profiles.push(profile);
+  setProfiles(profiles);
+  // Reset form
+  _onbSex=null;_onbGoal=null;
+  ['onb-name','onb-age','onb-weight','onb-height'].forEach(i=>document.getElementById(i).value='');
+  ['onb-sex-m','onb-sex-f','onb-goal-loss','onb-goal-maintain','onb-goal-gain'].forEach(i=>document.getElementById(i).classList.remove('sel'));
+  loadProfile(id);
+  goInicio();
+}
+
+function goOnboarding(){
+  closeProfileMenu();
+  document.querySelector('.onb-submit').onclick=onbSubmit;
+  goScreen('onboarding');
+}
+
+// ── SELECCIÓN DE PERFIL ──────────────────────────────────
+const GOAL_LABEL={loss:'Perder grasa',maintain:'Mantener peso',gain:'Ganar músculo'};
+
+function renderProfileSelect(){
+  const profiles=getProfiles();
+  let h='';
+  profiles.forEach(p=>{
+    const tdee=calcTDEEMap(p);
+    h+=`<div class="sel-card" onclick="selectProfile('${p.id}')">`;
+    h+=`<div class="sel-avatar">${p.name.charAt(0).toUpperCase()}</div>`;
+    h+=`<div class="sel-info"><div class="sel-name">${p.name}</div>`;
+    h+=`<div class="sel-detail">${p.age} años · ${p.weight} kg · ${p.height} cm · ${GOAL_LABEL[p.goal]||p.goal}</div></div>`;
+    h+=`<div style="font-size:12px;color:var(--green);font-weight:700;">~${tdee.descanso.toLocaleString('es-ES')}<br>kcal/día</div>`;
+    h+=`</div>`;
+  });
+  document.getElementById('sel-profiles-list').innerHTML=h;
+}
+
+function selectProfile(id){
+  loadProfile(id);
+  goInicio();
+}
+
+// ── MENÚ DE GESTIÓN DE PERFIL ────────────────────────────
+function openProfileMenu(){
+  const p=getProfiles().find(x=>x.id===currentProfileId);
+  if(!p)return;
+  document.getElementById('pmenu-name').textContent=p.name;
+  document.getElementById('pmenu-detail').textContent=
+    `${p.age} años · ${p.weight} kg · ${p.height} cm · ${GOAL_LABEL[p.goal]||p.goal}`;
+  const profiles=getProfiles();
+  let items='';
+  items+=`<div class="profile-menu-item" onclick="openEditProfile()"><span class="profile-menu-icon">✏️</span>Editar mis datos</div>`;
+  if(profiles.length>1){
+    items+=`<div class="profile-menu-item" onclick="openSwitchProfile()"><span class="profile-menu-icon">🔄</span>Cambiar perfil</div>`;
+  }
+  items+=`<div class="profile-menu-item" onclick="goOnboarding()"><span class="profile-menu-icon">➕</span>Añadir perfil</div>`;
+  items+=`<div class="profile-menu-item danger" onclick="confirmDeleteProfile()"><span class="profile-menu-icon">🗑️</span>Eliminar perfil</div>`;
+  document.getElementById('pmenu-items').innerHTML=items;
+  document.getElementById('profile-overlay').classList.add('open');
+}
+
+function closeProfileMenu(){
+  document.getElementById('profile-overlay').classList.remove('open');
+}
+
+function openSwitchProfile(){
+  closeProfileMenu();
+  renderProfileSelect();
+  goScreen('select-profile');
+}
+
+function openEditProfile(){
+  closeProfileMenu();
+  const p=getProfiles().find(x=>x.id===currentProfileId);
+  if(!p)return;
+  // Pre-rellenar formulario con datos actuales
+  document.getElementById('onb-name').value=p.name;
+  document.getElementById('onb-age').value=p.age;
+  document.getElementById('onb-weight').value=p.weight;
+  document.getElementById('onb-height').value=p.height;
+  _onbSex=p.sex;_onbGoal=p.goal;
+  document.getElementById('onb-sex-m').classList.toggle('sel',p.sex==='m');
+  document.getElementById('onb-sex-f').classList.toggle('sel',p.sex==='f');
+  ['loss','maintain','gain'].forEach(x=>document.getElementById('onb-goal-'+x).classList.toggle('sel',x===p.goal));
+  // Al hacer submit, actualiza en lugar de crear
+  document.querySelector('.onb-submit').onclick=()=>onbEditSubmit(p.id);
+  goScreen('onboarding');
+}
+
+function onbEditSubmit(id){
+  const name=document.getElementById('onb-name').value.trim();
+  const age=parseInt(document.getElementById('onb-age').value);
+  const weight=parseFloat(document.getElementById('onb-weight').value);
+  const height=parseInt(document.getElementById('onb-height').value);
+  if(!name||!_onbSex||!_onbGoal||!age||!weight||!height){showToast('Rellena todos los campos');return;}
+  const profiles=getProfiles();
+  const idx=profiles.findIndex(x=>x.id===id);
+  if(idx===-1)return;
+  profiles[idx]={...profiles[idx],name,sex:_onbSex,age,weight,height,goal:_onbGoal};
+  setProfiles(profiles);
+  document.querySelector('.onb-submit').onclick=onbSubmit;
+  loadProfile(id);
+  goInicio();
+}
+
+function confirmDeleteProfile(){
+  closeProfileMenu();
+  const p=getProfiles().find(x=>x.id===currentProfileId);
+  if(!p)return;
+  if(!confirm(`¿Eliminar el perfil de ${p.name}? Se borrarán todos sus datos.`))return;
+  const profiles=getProfiles().filter(x=>x.id!==currentProfileId);
+  setProfiles(profiles);
+  currentProfileId=null;
+  initApp();
+}
 </script>
 </body>
 </html>
