@@ -342,30 +342,42 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:22px;heigh
 .badge-row{display:flex;flex-wrap:wrap;gap:5px;margin-top:6px;padding:0 0 2px;}
 
 /* ── PERFILES ─────────────────────────────────────────── */
-.onb-screen{min-height:100%;display:flex;flex-direction:column;padding:calc(var(--safe-top)+32px) 24px calc(var(--safe-bottom)+32px);background:var(--bg);}
-.onb-logo{font-family:var(--font-display);font-size:52px;letter-spacing:3px;color:var(--text);text-align:center;margin-bottom:4px;}
-.onb-sub{font-size:13px;color:var(--text3);text-align:center;margin-bottom:32px;font-weight:500;}
-.onb-field{margin-bottom:18px;}
-.onb-label{font-size:11px;font-weight:800;letter-spacing:0.08em;text-transform:uppercase;color:var(--text3);margin-bottom:6px;}
-.onb-input{width:100%;padding:13px 14px;border:1.5px solid var(--border2);border-radius:var(--radius-sm);font-size:15px;font-family:var(--font);background:var(--bg2);color:var(--text);outline:none;-webkit-appearance:none;}
+/* ONBOARDING */
+.onb-screen{min-height:100%;display:flex;flex-direction:column;background:var(--bg);}
+.onb-hero{background:var(--text);padding:calc(var(--safe-top)+28px) 24px 32px;position:relative;overflow:hidden;display:flex;flex-direction:column;align-items:center;text-align:center;}
+.onb-hero-swoosh{position:absolute;inset:0;pointer-events:none;z-index:0;}
+.onb-hero-content{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;}
+.onb-icon{width:70px;height:70px;border-radius:18px;margin-bottom:14px;box-shadow:0 8px 24px rgba(0,0,0,0.35);}
+.onb-logo{font-family:var(--font-display);font-size:48px;letter-spacing:3px;color:#fff;line-height:1;}
+.onb-sub{font-size:13px;color:rgba(255,255,255,0.45);margin-top:8px;font-weight:500;max-width:280px;}
+.onb-form{padding:24px 20px calc(var(--safe-bottom)+32px);display:flex;flex-direction:column;gap:18px;}
+.onb-field{display:flex;flex-direction:column;gap:7px;}
+.onb-label{font-size:11px;font-weight:800;letter-spacing:0.10em;text-transform:uppercase;color:var(--text3);}
+.onb-input{width:100%;padding:14px 16px;border:1.5px solid var(--border2);border-radius:var(--radius-sm);font-size:16px;font-family:var(--font);background:var(--bg2);color:var(--text);outline:none;-webkit-appearance:none;box-shadow:0 1px 4px rgba(0,0,0,0.05);}
 .onb-input:focus{border-color:var(--green);}
 .onb-row{display:flex;gap:10px;}
-.onb-sex-btn{flex:1;padding:13px 8px;border:1.5px solid var(--border2);border-radius:var(--radius-sm);font-size:22px;background:var(--bg2);cursor:pointer;text-align:center;transition:all 0.15s;}
-.onb-sex-btn.sel{border-color:var(--green);background:var(--green-dim);}
-.onb-goal-btn{flex:1;padding:10px 6px;border:1.5px solid var(--border2);border-radius:var(--radius-sm);font-size:11px;font-weight:700;background:var(--bg2);cursor:pointer;text-align:center;color:var(--text2);transition:all 0.15s;line-height:1.3;}
+.onb-sex-btn{flex:1;padding:15px 8px;border:1.5px solid var(--border2);border-radius:var(--radius-sm);font-size:15px;font-weight:700;background:var(--bg2);cursor:pointer;text-align:center;transition:all 0.15s;color:var(--text2);box-shadow:0 1px 4px rgba(0,0,0,0.05);font-family:var(--font);}
+.onb-sex-btn.sel{border-color:var(--green);background:var(--green-dim);color:var(--green);}
+.onb-triple{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;}
+.onb-input-wrap{display:flex;flex-direction:column;gap:5px;}
+.onb-goal-btn{flex:1;padding:12px 6px;border:1.5px solid var(--border2);border-radius:var(--radius-sm);font-size:11px;font-weight:700;background:var(--bg2);cursor:pointer;text-align:center;color:var(--text2);transition:all 0.15s;line-height:1.4;box-shadow:0 1px 4px rgba(0,0,0,0.05);font-family:var(--font);}
 .onb-goal-btn.sel{border-color:var(--green);background:var(--green-dim);color:var(--green);}
-.onb-submit{width:100%;padding:16px;background:var(--text);color:#fff;border:none;border-radius:var(--radius-sm);font-size:15px;font-weight:800;letter-spacing:0.08em;text-transform:uppercase;cursor:pointer;font-family:var(--font);margin-top:8px;}
-
-.sel-screen{min-height:100%;display:flex;flex-direction:column;padding:calc(var(--safe-top)+40px) 24px calc(var(--safe-bottom)+32px);background:var(--bg);}
-.sel-title{font-family:var(--font-display);font-size:36px;letter-spacing:2px;text-align:center;margin-bottom:6px;}
-.sel-sub{font-size:13px;color:var(--text3);text-align:center;margin-bottom:28px;font-weight:500;}
-.sel-card{display:flex;align-items:center;background:var(--bg2);border:1.5px solid var(--border);border-radius:var(--radius-sm);padding:16px;margin-bottom:10px;cursor:pointer;gap:14px;transition:all 0.15s;}
+.onb-submit{width:100%;padding:17px;background:var(--text);color:#fff;border:none;border-radius:var(--radius-sm);font-size:16px;font-weight:800;letter-spacing:0.08em;text-transform:uppercase;cursor:pointer;font-family:var(--font);box-shadow:0 4px 16px rgba(0,0,0,0.15);}
+/* SELECT PROFILE */
+.sel-screen{min-height:100%;display:flex;flex-direction:column;background:var(--bg);}
+.sel-hero{background:var(--text);padding:calc(var(--safe-top)+24px) 24px 28px;position:relative;overflow:hidden;}
+.sel-hero-swoosh{position:absolute;inset:0;pointer-events:none;z-index:0;}
+.sel-hero-content{position:relative;z-index:1;text-align:center;}
+.sel-title{font-family:var(--font-display);font-size:44px;letter-spacing:3px;color:#fff;text-align:center;}
+.sel-sub{font-size:13px;color:rgba(255,255,255,0.45);text-align:center;margin-top:6px;font-weight:500;}
+.sel-list{padding:20px 16px calc(var(--safe-bottom)+20px);}
+.sel-card{display:flex;align-items:center;background:var(--bg2);border:0.5px solid var(--border);border-radius:var(--radius-sm);padding:16px;margin-bottom:10px;cursor:pointer;gap:14px;transition:all 0.15s;box-shadow:0 2px 8px rgba(0,0,0,0.06);}
 .sel-card:active{transform:scale(0.98);}
-.sel-avatar{width:44px;height:44px;border-radius:50%;background:var(--green-dim);border:2px solid var(--green);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;}
+.sel-avatar{width:46px;height:46px;border-radius:50%;background:var(--green-dim);border:2px solid var(--green);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;}
 .sel-info{flex:1;}
 .sel-name{font-size:17px;font-weight:800;color:var(--text);}
 .sel-detail{font-size:12px;color:var(--text3);margin-top:2px;}
-.sel-add{width:100%;padding:14px;background:none;border:1.5px dashed var(--border2);border-radius:var(--radius-sm);font-size:14px;font-weight:700;color:var(--text3);cursor:pointer;margin-top:6px;font-family:var(--font);}
+.sel-add{width:100%;padding:14px;background:none;border:1.5px dashed var(--border2);border-radius:var(--radius-sm);font-size:14px;font-weight:700;color:var(--text3);cursor:pointer;margin-top:4px;font-family:var(--font);}
 
 .profile-btn{position:absolute;top:calc(var(--safe-top)+12px);right:16px;background:rgba(255,255,255,0.18);border:1.5px solid rgba(255,255,255,0.25);border-radius:50%;width:38px;height:38px;display:flex;align-items:center;justify-content:center;font-size:18px;cursor:pointer;z-index:10;}
 .profile-overlay{display:none;position:fixed;inset:0;z-index:300;background:rgba(0,0,0,0.4);}
@@ -821,54 +833,92 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:22px;heigh
 <!-- PANTALLA ONBOARDING -->
 <div class="screen" id="screen-onboarding">
   <div class="onb-screen">
-    <div class="onb-logo">AZKFIT</div>
-    <div class="onb-sub">Cuéntanos sobre ti para personalizar tu experiencia</div>
-    <div class="onb-field">
-      <div class="onb-label">Nombre</div>
-      <input class="onb-input" id="onb-name" type="text" placeholder="Tu nombre" autocomplete="off">
-    </div>
-    <div class="onb-field">
-      <div class="onb-label">Sexo</div>
-      <div class="onb-row">
-        <button class="onb-sex-btn" id="onb-sex-m" onclick="onbSelSex('m')">♂️ Hombre</button>
-        <button class="onb-sex-btn" id="onb-sex-f" onclick="onbSelSex('f')">♀️ Mujer</button>
+    <div class="onb-hero">
+      <svg class="onb-hero-swoosh" viewBox="0 0 400 200" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="onbsw1" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" style="stop-color:#93c5fd;stop-opacity:0"/>
+            <stop offset="50%" style="stop-color:#93c5fd;stop-opacity:0.3"/>
+            <stop offset="100%" style="stop-color:#3b82f6;stop-opacity:0.1"/>
+          </linearGradient>
+        </defs>
+        <path d="M-40,140 C60,40 180,160 320,60 S420,10 480,80" stroke="url(#onbsw1)" stroke-width="2" fill="none"/>
+        <path d="M-20,170 C80,80 200,180 340,90 S440,40 500,110" stroke="#93c5fd" stroke-width="1" fill="none" opacity="0.15"/>
+        <circle cx="314" cy="62" r="3" fill="#3b82f6" opacity="0.3"/>
+        <circle cx="314" cy="62" r="7" fill="#3b82f6" opacity="0.1"/>
+      </svg>
+      <div class="onb-hero-content">
+        <img class="onb-icon" src="icon.png" alt="AzkFit">
+        <div class="onb-logo">AZKFIT</div>
+        <div class="onb-sub">Cuéntanos sobre ti para personalizar tu experiencia</div>
       </div>
     </div>
-    <div class="onb-field">
-      <div class="onb-row">
-        <div style="flex:1;">
-          <div class="onb-label">Edad</div>
-          <input class="onb-input" id="onb-age" type="number" placeholder="años" min="10" max="99">
-        </div>
-        <div style="flex:1;">
-          <div class="onb-label">Peso (kg)</div>
-          <input class="onb-input" id="onb-weight" type="number" placeholder="kg" min="30" max="250" step="0.1">
-        </div>
-        <div style="flex:1;">
-          <div class="onb-label">Altura (cm)</div>
-          <input class="onb-input" id="onb-height" type="number" placeholder="cm" min="100" max="250">
+    <div class="onb-form">
+      <div class="onb-field">
+        <div class="onb-label">Nombre</div>
+        <input class="onb-input" id="onb-name" type="text" placeholder="Tu nombre" autocomplete="off">
+      </div>
+      <div class="onb-field">
+        <div class="onb-label">Sexo</div>
+        <div class="onb-row">
+          <button class="onb-sex-btn" id="onb-sex-m" onclick="onbSelSex('m')">Hombre</button>
+          <button class="onb-sex-btn" id="onb-sex-f" onclick="onbSelSex('f')">Mujer</button>
         </div>
       </div>
-    </div>
-    <div class="onb-field">
-      <div class="onb-label">Objetivo</div>
-      <div class="onb-row">
-        <button class="onb-goal-btn" id="onb-goal-loss" onclick="onbSelGoal('loss')">🔥 Perder grasa</button>
-        <button class="onb-goal-btn" id="onb-goal-maintain" onclick="onbSelGoal('maintain')">⚖️ Mantener</button>
-        <button class="onb-goal-btn" id="onb-goal-gain" onclick="onbSelGoal('gain')">💪 Ganar músculo</button>
+      <div class="onb-field">
+        <div class="onb-label">Datos físicos</div>
+        <div class="onb-triple">
+          <div class="onb-input-wrap">
+            <div class="onb-label">Edad</div>
+            <input class="onb-input" id="onb-age" type="number" placeholder="años" min="10" max="99">
+          </div>
+          <div class="onb-input-wrap">
+            <div class="onb-label">Peso (kg)</div>
+            <input class="onb-input" id="onb-weight" type="number" placeholder="kg" min="30" max="250" step="0.1">
+          </div>
+          <div class="onb-input-wrap">
+            <div class="onb-label">Altura (cm)</div>
+            <input class="onb-input" id="onb-height" type="number" placeholder="cm" min="100" max="250">
+          </div>
+        </div>
       </div>
+      <div class="onb-field">
+        <div class="onb-label">Objetivo</div>
+        <div class="onb-row">
+          <button class="onb-goal-btn" id="onb-goal-loss" onclick="onbSelGoal('loss')">🔥 Perder grasa</button>
+          <button class="onb-goal-btn" id="onb-goal-maintain" onclick="onbSelGoal('maintain')">⚖️ Mantener</button>
+          <button class="onb-goal-btn" id="onb-goal-gain" onclick="onbSelGoal('gain')">💪 Ganar músculo</button>
+        </div>
+      </div>
+      <button class="onb-submit" onclick="onbSubmit()">Empezar →</button>
     </div>
-    <button class="onb-submit" onclick="onbSubmit()">Empezar →</button>
   </div>
 </div>
 
 <!-- PANTALLA SELECCIÓN DE PERFIL -->
 <div class="screen" id="screen-select-profile">
   <div class="sel-screen">
-    <div class="sel-title">¿QUIÉN ERES?</div>
-    <div class="sel-sub">Selecciona tu perfil para continuar</div>
-    <div id="sel-profiles-list"></div>
-    <button class="sel-add" onclick="goOnboarding()">+ Añadir nuevo perfil</button>
+    <div class="sel-hero">
+      <svg class="sel-hero-swoosh" viewBox="0 0 400 160" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="selsw1" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" style="stop-color:#93c5fd;stop-opacity:0"/>
+            <stop offset="50%" style="stop-color:#93c5fd;stop-opacity:0.3"/>
+            <stop offset="100%" style="stop-color:#3b82f6;stop-opacity:0.1"/>
+          </linearGradient>
+        </defs>
+        <path d="M-40,110 C60,30 180,130 320,50 S420,10 480,60" stroke="url(#selsw1)" stroke-width="2" fill="none"/>
+        <path d="M-20,140 C80,60 200,150 340,70 S440,30 500,90" stroke="#93c5fd" stroke-width="1" fill="none" opacity="0.15"/>
+      </svg>
+      <div class="sel-hero-content">
+        <div class="sel-title">¿QUIÉN ERES?</div>
+        <div class="sel-sub">Selecciona tu perfil para continuar</div>
+      </div>
+    </div>
+    <div class="sel-list">
+      <div id="sel-profiles-list"></div>
+      <button class="sel-add" onclick="goOnboarding()">+ Añadir nuevo perfil</button>
+    </div>
   </div>
 </div>
 
@@ -2316,10 +2366,10 @@ function calcTMB(p){
 function calcTDEEMap(p){
   const tmb=calcTMB(p);
   return{
-    descanso:Math.round(tmb*1.35),
+    descanso:Math.round(tmb*1.375),
     gym:Math.round(tmb*1.55),
-    crossfit:Math.round(tmb*1.55),
-    doble:Math.round(tmb*1.65)
+    crossfit:Math.round(tmb*1.725),
+    doble:Math.round(tmb*1.9)
   };
 }
 
