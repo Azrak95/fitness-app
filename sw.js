@@ -1,4 +1,4 @@
-const CACHE = 'azkfit-v4';
+const CACHE = 'azkfit-v5';
 
 self.addEventListener('install', () => self.skipWaiting());
 
