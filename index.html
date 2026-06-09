@@ -2055,9 +2055,8 @@ function renderExercises(){
   exercises.forEach((ex,i)=>{
     const saved=savedSession[i]||{};
     const lastJ=ex.series.length-1;
-    const hist=sget('gym_hist_'+currentRutina+'_'+i)||[];
-    const lastEntry=hist.length?hist[hist.length-1]:null;
-    const prevReps=lastEntry?parseInt(lastEntry[lastJ]?.r)||null:null;
+    const storedReps=sget('gym_last_reps_'+currentRutina+'_'+i);
+    const prevReps=storedReps!==null?parseInt(storedReps)||null:null;
     const prWeight=sget('gym_pr_w_'+currentRutina+'_'+i)||null;
     const card=document.createElement('div');
     card.className='ex-card';
@@ -2165,8 +2164,8 @@ function gymChangeReps(i,j,input){
 
   const exercises=currentRutina===1?R1:R2;
   const lastSerieIdx=exercises[i].series.length-1;
-  const hist=sget('gym_hist_'+currentRutina+'_'+i)||[];
-  const prevReps=hist.length?parseInt(hist[hist.length-1][lastSerieIdx]?.r)||null:null;
+  const storedR=sget('gym_last_reps_'+currentRutina+'_'+i);
+  const prevReps=storedR!==null?parseInt(storedR)||null:null;
   const curR=parseInt(r)||null;
 
   // Update delta badge + persist
@@ -2260,15 +2259,18 @@ function finalizarEntreno(){
         if(hist.length>30)hist.shift();
         sset('gym_hist_'+currentRutina+'_'+i,hist);
       }
-      // Save PR weight from last serie if applicable
+      // Save PR weight + last reps from last serie for next-session comparison
       const lastSerieIdx=exercises[i].series.length-1;
-      const lastW=gymSessionData[i]&&gymSessionData[i][lastSerieIdx]?gymSessionData[i][lastSerieIdx].w:null;
+      const lastSerie=gymSessionData[i]&&gymSessionData[i][lastSerieIdx]?gymSessionData[i][lastSerieIdx]:null;
+      const lastW=lastSerie?lastSerie.w:null;
       if(lastW){
         const curW=parseFloat(lastW.replace(/[^\d.]/g,''))||null;
         const prWeight=sget('gym_pr_w_'+currentRutina+'_'+i);
         const prNum=prWeight?parseFloat(prWeight.replace(/[^\d.]/g,''))||null:null;
         if(curW!==null&&(prNum===null||curW>prNum)) sset('gym_pr_w_'+currentRutina+'_'+i,lastW);
       }
+      const lastR=lastSerie?lastSerie.r:null;
+      if(lastR!==null&&lastR!=='') sset('gym_last_reps_'+currentRutina+'_'+i,lastR);
     });
     sset('last_rutina',currentRutina);
   }
