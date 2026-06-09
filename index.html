@@ -389,6 +389,21 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:22px;heigh
 .profile-menu-item:last-child{border-bottom:none;}
 .profile-menu-item.danger{color:var(--red);}
 .profile-menu-icon{font-size:20px;width:28px;text-align:center;}
+/* HIDRATACIÓN */
+.agua-modal-overlay{display:none;position:fixed;inset:0;z-index:300;background:rgba(0,0,0,0.4);}
+.agua-modal-overlay.open{display:block;}
+.agua-sheet{position:absolute;bottom:0;left:0;right:0;background:var(--bg2);border-radius:var(--radius) var(--radius) 0 0;padding:20px 0 calc(var(--safe-bottom)+28px);}
+.agua-sheet-handle{width:36px;height:4px;background:var(--bg5);border-radius:2px;margin:0 auto 20px;}
+.agua-sheet-title{font-size:11px;font-weight:800;letter-spacing:0.12em;text-transform:uppercase;color:var(--text3);text-align:center;margin-bottom:24px;}
+.agua-counter{display:flex;align-items:center;justify-content:center;gap:28px;margin-bottom:8px;}
+.agua-counter-num{font-family:var(--font-display);font-size:80px;letter-spacing:2px;color:var(--text);line-height:1;min-width:90px;text-align:center;}
+.agua-counter-btn{width:54px;height:54px;border-radius:50%;border:none;cursor:pointer;font-size:28px;font-weight:700;display:flex;align-items:center;justify-content:center;transition:transform 0.1s;}
+.agua-counter-btn:active{transform:scale(0.92);}
+.agua-counter-btn.plus{background:var(--blue);color:#fff;}
+.agua-counter-btn.minus{background:var(--bg4);color:var(--text2);}
+.agua-goal-txt{text-align:center;font-size:14px;color:var(--text3);font-weight:500;margin-bottom:20px;padding:0 24px;}
+.agua-sheet-bar{height:6px;border-radius:3px;margin:0 24px;background:var(--bg4);overflow:hidden;}
+.agua-sheet-fill{height:100%;border-radius:3px;transition:width 0.4s ease,background 0.4s;}
 </style>
 </head>
 <body>
@@ -515,6 +530,22 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:22px;heigh
         <div class="menu-card-sub">Lista automática</div>
       </div>
       <div id="compra-badge" style="display:none;background:#ef4444;color:#fff;border-radius:50%;width:22px;height:22px;font-size:12px;font-weight:800;align-items:center;justify-content:center;flex-shrink:0;"></div>
+    </div>
+    <!-- Agua -->
+    <div class="menu-card blue-card" id="agua-card" onclick="openAguaModal()" style="grid-column:span 2;flex-direction:column;align-items:stretch;min-height:auto;padding:18px 20px 14px;gap:0;">
+      <div class="menu-card-accent"></div>
+      <div class="menu-card-arrow"><svg viewBox="0 0 24 24"><polyline points="9,18 15,12 9,6"/></svg></div>
+      <div style="display:flex;align-items:center;gap:14px;">
+        <div style="font-size:30px;line-height:1;">💧</div>
+        <div style="flex:1;">
+          <div class="menu-card-name">Agua</div>
+          <div class="menu-card-sub" id="agua-card-count">0/8 vasos</div>
+        </div>
+        <div id="agua-card-pct" style="font-size:20px;font-weight:900;color:var(--red);">0%</div>
+      </div>
+      <div style="margin-top:10px;height:4px;border-radius:2px;background:rgba(0,0,0,0.08);overflow:hidden;">
+        <div id="agua-card-fill" style="height:100%;border-radius:2px;width:0%;background:var(--red);transition:width 0.4s,background 0.4s;"></div>
+      </div>
     </div>
     <!-- Progreso: wide + centrado -->
     <div class="menu-card purple-card wide centered" onclick="goScreen('progreso')" style="grid-column:span 2;">
@@ -923,6 +954,22 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:22px;heigh
   </div>
 </div>
 
+<!-- MODAL HIDRATACIÓN -->
+<div class="agua-modal-overlay" id="agua-modal-overlay" onclick="closeAguaModal()">
+  <div class="agua-sheet" onclick="event.stopPropagation()">
+    <div class="agua-sheet-handle"></div>
+    <div class="agua-sheet-title">Hidratación</div>
+    <div class="agua-counter">
+      <button class="agua-counter-btn minus" onclick="addVaso(-1)">−</button>
+      <div class="agua-counter-num" id="agua-modal-count">0</div>
+      <button class="agua-counter-btn plus" onclick="addVaso(1)">+</button>
+    </div>
+    <div class="agua-goal-txt" id="agua-modal-goal">Objetivo: 8 vasos · 2000 ml</div>
+    <div class="agua-sheet-bar">
+      <div class="agua-sheet-fill" id="agua-modal-fill" style="width:0%;background:var(--red);"></div>
+    </div>
+  </div>
+</div>
 <!-- CRONÓMETRO FLOTANTE -->
 <div id="cronometro" style="display:none;position:fixed;bottom:calc(var(--nav-h) + var(--safe-bottom) + 70px);right:16px;z-index:60;background:#1a1a1a;border-radius:16px;padding:12px 16px;box-shadow:0 8px 32px rgba(0,0,0,0.2);min-width:130px;text-align:center;transition:background 0.3s;user-select:none;touch-action:none;">
   <!-- Drag handle -->
@@ -1059,6 +1106,7 @@ function updateInicio(){
     document.getElementById('qs-train-sub').textContent='Sin registrar';
     document.getElementById('inicio-sub').textContent=rec?'Registra tu entreno':'Registra tu día';
   }
+  renderAguaCard();
 }
 
 function updateDateLabel(){
@@ -1421,6 +1469,52 @@ function update(){
   document.getElementById('mp-prot').textContent=prot+'g';
   document.getElementById('mp-carb').textContent=carb+'g';
   document.getElementById('mp-fat').textContent=fat+'g';
+}
+
+// ── HIDRATACIÓN ──────────────────────────────────────────
+function getAguaMl(){return sget('agua_ml')||250;}
+function getAguaGoal(){
+  const p=getProfiles().find(x=>x.id===currentProfileId);
+  const ml=getAguaMl();
+  const base=p?Math.ceil(p.weight*35/ml):8;
+  const dayData=sget('day_'+dkey(new Date()));
+  const train=(dayData&&dayData.train)||'descanso';
+  const bonus=train==='doble'?3:(train!=='descanso'?2:0);
+  return base+bonus;
+}
+function getAguaHoy(){return sget('agua_'+dkey(new Date()))||0;}
+function setAguaHoy(n){sset('agua_'+dkey(new Date()),Math.max(0,n));}
+function aguaColor(pct){return pct>=0.7?'var(--green)':pct>=0.4?'var(--amber)':'var(--red)';}
+function renderAguaCard(){
+  const n=getAguaHoy(),goal=getAguaGoal();
+  const pct=goal>0?n/goal:0;
+  const pctW=Math.min(100,Math.round(pct*100));
+  const color=aguaColor(pct);
+  const elCount=document.getElementById('agua-card-count');
+  const elFill=document.getElementById('agua-card-fill');
+  const elPct=document.getElementById('agua-card-pct');
+  if(elCount)elCount.textContent=n+'/'+goal+' vasos';
+  if(elFill){elFill.style.width=pctW+'%';elFill.style.background=color;}
+  if(elPct){elPct.textContent=pctW+'%';elPct.style.color=color;}
+}
+function renderAguaModal(){
+  const n=getAguaHoy(),goal=getAguaGoal(),ml=getAguaMl();
+  const pct=goal>0?n/goal:0;
+  const pctW=Math.min(100,Math.round(pct*100));
+  const color=aguaColor(pct);
+  const elN=document.getElementById('agua-modal-count');
+  const elG=document.getElementById('agua-modal-goal');
+  const elF=document.getElementById('agua-modal-fill');
+  if(elN)elN.textContent=n;
+  if(elG)elG.textContent='Objetivo: '+goal+' vasos · '+Math.round(goal*ml)+' ml';
+  if(elF){elF.style.width=pctW+'%';elF.style.background=color;}
+}
+function openAguaModal(){renderAguaModal();document.getElementById('agua-modal-overlay').classList.add('open');}
+function closeAguaModal(){document.getElementById('agua-modal-overlay').classList.remove('open');}
+function addVaso(delta){
+  setAguaHoy(getAguaHoy()+delta);
+  renderAguaModal();
+  renderAguaCard();
 }
 
 // ── DESPENSA ─────────────────────────────────────────────
