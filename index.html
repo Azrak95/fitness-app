@@ -404,6 +404,19 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:22px;heigh
 .agua-goal-txt{text-align:center;font-size:14px;color:var(--text3);font-weight:500;margin-bottom:20px;padding:0 24px;}
 .agua-sheet-bar{height:6px;border-radius:3px;margin:0 24px;background:var(--bg4);overflow:hidden;}
 .agua-sheet-fill{height:100%;border-radius:3px;transition:width 0.4s ease,background 0.4s;}
+.agua-quick-btn{width:34px;height:34px;border-radius:50%;border:1.5px solid var(--border2);background:var(--bg2);color:var(--text2);font-size:20px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:transform 0.1s;flex-shrink:0;}
+.agua-quick-btn:active{transform:scale(0.88);}
+.agua-quick-btn.plus{background:var(--blue);border-color:var(--blue);color:#fff;}
+/* AJUSTES */
+.ajustes-section{margin:20px 0 0;}
+.ajustes-section-title{font-size:11px;font-weight:800;letter-spacing:0.12em;text-transform:uppercase;color:var(--text3);padding:0 20px;margin-bottom:8px;}
+.ajustes-row{display:flex;align-items:center;background:var(--bg2);padding:14px 20px;border-bottom:0.5px solid var(--border);}
+.ajustes-row:first-of-type{border-top:0.5px solid var(--border);}
+.ajustes-row-label{flex:1;font-size:15px;font-weight:600;color:var(--text);}
+.ajustes-row-sub{font-size:12px;color:var(--text3);margin-top:2px;}
+.ajustes-stepper{display:flex;align-items:center;gap:12px;}
+.ajustes-stepper-btn{width:30px;height:30px;border-radius:50%;border:1.5px solid var(--border2);background:var(--bg);color:var(--text);font-size:18px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;}
+.ajustes-stepper-val{font-size:17px;font-weight:800;color:var(--text);min-width:24px;text-align:center;}
 </style>
 </head>
 <body>
@@ -532,16 +545,19 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:22px;heigh
       <div id="compra-badge" style="display:none;background:#ef4444;color:#fff;border-radius:50%;width:22px;height:22px;font-size:12px;font-weight:800;align-items:center;justify-content:center;flex-shrink:0;"></div>
     </div>
     <!-- Agua -->
-    <div class="menu-card blue-card" id="agua-card" onclick="openAguaModal()" style="grid-column:span 2;flex-direction:column;align-items:stretch;min-height:auto;padding:18px 20px 14px;gap:0;">
+    <div class="menu-card blue-card" id="agua-card" onclick="addVaso(1)" style="grid-column:span 2;flex-direction:column;align-items:stretch;min-height:auto;padding:18px 20px 14px;gap:0;">
       <div class="menu-card-accent"></div>
-      <div class="menu-card-arrow"><svg viewBox="0 0 24 24"><polyline points="9,18 15,12 9,6"/></svg></div>
       <div style="display:flex;align-items:center;gap:14px;">
         <div style="font-size:30px;line-height:1;">💧</div>
         <div style="flex:1;">
           <div class="menu-card-name">Agua</div>
           <div class="menu-card-sub" id="agua-card-count">0/8 vasos</div>
         </div>
-        <div id="agua-card-pct" style="font-size:20px;font-weight:900;color:var(--red);">0%</div>
+        <div style="display:flex;align-items:center;gap:8px;" onclick="event.stopPropagation()">
+          <button class="agua-quick-btn" onclick="addVaso(-1)">−</button>
+          <div id="agua-card-pct" style="font-size:18px;font-weight:900;color:var(--red);min-width:38px;text-align:center;">0%</div>
+          <button class="agua-quick-btn plus" onclick="addVaso(1)">+</button>
+        </div>
       </div>
       <div style="margin-top:10px;height:4px;border-radius:2px;background:rgba(0,0,0,0.08);overflow:hidden;">
         <div id="agua-card-fill" style="height:100%;border-radius:2px;width:0%;background:var(--red);transition:width 0.4s,background 0.4s;"></div>
@@ -954,6 +970,43 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:22px;heigh
   </div>
 </div>
 
+<!-- PANTALLA AJUSTES -->
+<div class="screen" id="screen-ajustes">
+  <div class="ali-header">
+    <svg class="ali-header-swoosh" viewBox="0 0 400 120" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg"><path d="M-20,90 C80,20 200,100 340,40 S440,10 480,60" stroke="#93c5fd" stroke-width="2" fill="none" opacity="0.4"/></svg>
+    <button class="page-back" onclick="goInicio()"><svg viewBox="0 0 24 24"><polyline points="15,18 9,12 15,6"/></svg>Inicio</button>
+    <div class="page-big-title">Ajustes</div>
+  </div>
+  <div style="padding-bottom:40px;">
+    <div class="ajustes-section">
+      <div class="ajustes-section-title">Hidratación</div>
+      <div class="ajustes-row">
+        <div><div class="ajustes-row-label">Objetivo base</div><div class="ajustes-row-sub">Días de descanso</div></div>
+        <div class="ajustes-stepper">
+          <button class="ajustes-stepper-btn" onclick="adjustAguaSetting('base',-1)">−</button>
+          <div class="ajustes-stepper-val" id="cfg-agua-base">8</div>
+          <button class="ajustes-stepper-btn" onclick="adjustAguaSetting('base',1)">+</button>
+        </div>
+      </div>
+      <div class="ajustes-row">
+        <div><div class="ajustes-row-label">Extra gym / crossfit</div><div class="ajustes-row-sub">Vasos adicionales en días de entreno</div></div>
+        <div class="ajustes-stepper">
+          <button class="ajustes-stepper-btn" onclick="adjustAguaSetting('gym',- 1)">−</button>
+          <div class="ajustes-stepper-val" id="cfg-agua-gym">+1</div>
+          <button class="ajustes-stepper-btn" onclick="adjustAguaSetting('gym',1)">+</button>
+        </div>
+      </div>
+      <div class="ajustes-row">
+        <div><div class="ajustes-row-label">Extra doble sesión</div><div class="ajustes-row-sub">Vasos adicionales en doble entreno</div></div>
+        <div class="ajustes-stepper">
+          <button class="ajustes-stepper-btn" onclick="adjustAguaSetting('doble',-1)">−</button>
+          <div class="ajustes-stepper-val" id="cfg-agua-doble">+2</div>
+          <button class="ajustes-stepper-btn" onclick="adjustAguaSetting('doble',1)">+</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 <!-- MODAL HIDRATACIÓN -->
 <div class="agua-modal-overlay" id="agua-modal-overlay" onclick="closeAguaModal()">
   <div class="agua-sheet" onclick="event.stopPropagation()">
@@ -1227,7 +1280,7 @@ function showManualForm(g){
   document.getElementById('db-search-'+g)?.focus();
 }
 
-function selTrain(t,el){state.train=t;document.querySelectorAll('.train-opt').forEach(e=>e.classList.remove('sel'));el.classList.add('sel');update();}
+function selTrain(t,el){state.train=t;document.querySelectorAll('.train-opt').forEach(e=>e.classList.remove('sel'));el.classList.add('sel');update();renderAguaCard();}
 function selMeal(group,key,el){state[group]=key;document.querySelectorAll(`[onclick^="selMeal('${group}'"]`).forEach(e=>e.classList.remove('sel'));el.classList.add('sel');update();}
 function selCena(key,el){state.cena=key;document.querySelectorAll('[onclick^="selCena"]').forEach(e=>e.classList.remove('sel'));el.classList.add('sel');document.getElementById('salsa-section').style.display=key!=='nada'?'block':'none';if(key==='nada'){state.salsa=null;state.postre=null;}update();}
 function selComida(key,el){
@@ -1472,15 +1525,36 @@ function update(){
 }
 
 // ── HIDRATACIÓN ──────────────────────────────────────────
-function getAguaMl(){return sget('agua_ml')||250;}
+function getAguaCfg(){
+  return{
+    base: sget('agua_base')||8,
+    gym:  sget('agua_gym') !=null?sget('agua_gym'):1,
+    doble:sget('agua_doble')!=null?sget('agua_doble'):2
+  };
+}
 function getAguaGoal(){
-  const p=getProfiles().find(x=>x.id===currentProfileId);
-  const ml=getAguaMl();
-  const base=p?Math.ceil(p.weight*35/ml):8;
+  const cfg=getAguaCfg();
   const dayData=sget('day_'+dkey(new Date()));
-  const train=(dayData&&dayData.train)||'descanso';
-  const bonus=train==='doble'?3:(train!=='descanso'?2:0);
-  return base+bonus;
+  const train=state.train||(dayData&&dayData.train)||'descanso';
+  const bonus=train==='doble'?cfg.doble:(train!=='descanso'?cfg.gym:0);
+  return cfg.base+bonus;
+}
+function goAjustes(){
+  const cfg=getAguaCfg();
+  const b=document.getElementById('cfg-agua-base');
+  const g=document.getElementById('cfg-agua-gym');
+  const d=document.getElementById('cfg-agua-doble');
+  if(b)b.textContent=cfg.base;
+  if(g)g.textContent='+'+cfg.gym;
+  if(d)d.textContent='+'+cfg.doble;
+  goScreen('ajustes');
+}
+function adjustAguaSetting(key,delta){
+  const cfg=getAguaCfg();
+  if(key==='base'){cfg.base=Math.max(1,cfg.base+delta);sset('agua_base',cfg.base);const el=document.getElementById('cfg-agua-base');if(el)el.textContent=cfg.base;}
+  if(key==='gym'){cfg.gym=Math.max(0,cfg.gym+delta);sset('agua_gym',cfg.gym);const el=document.getElementById('cfg-agua-gym');if(el)el.textContent='+'+cfg.gym;}
+  if(key==='doble'){cfg.doble=Math.max(0,cfg.doble+delta);sset('agua_doble',cfg.doble);const el=document.getElementById('cfg-agua-doble');if(el)el.textContent='+'+cfg.doble;}
+  renderAguaCard();
 }
 function getAguaHoy(){return sget('agua_'+dkey(new Date()))||0;}
 function setAguaHoy(n){sset('agua_'+dkey(new Date()),Math.max(0,n));}
@@ -2566,6 +2640,7 @@ function openProfileMenu(){
     `${p.age} años · ${p.weight} kg · ${p.height} cm · ${GOAL_LABEL[p.goal]||p.goal}`;
   const profiles=getProfiles();
   let items='';
+  items+=`<div class="profile-menu-item" onclick="closeProfileMenu();goAjustes()"><span class="profile-menu-icon">⚙️</span>Ajustes</div>`;
   items+=`<div class="profile-menu-item" onclick="openEditProfile()"><span class="profile-menu-icon">✏️</span>Editar mis datos</div>`;
   if(profiles.length>1){
     items+=`<div class="profile-menu-item" onclick="openSwitchProfile()"><span class="profile-menu-icon">🔄</span>Cambiar perfil</div>`;
