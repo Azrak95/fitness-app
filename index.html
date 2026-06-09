@@ -447,6 +447,22 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:22px;heigh
 .prog-cal-day.has-doble{background:var(--green-dim);color:var(--green);font-weight:800;}
 .prog-cal-day.is-today{outline:2px solid var(--text);outline-offset:-2px;}
 .prog-cal-day.is-empty{background:transparent;}
+.prog-fatiga{display:none;margin:0 16px 14px;background:var(--amber-dim);border:1.5px solid var(--amber);border-radius:var(--radius-sm);padding:11px 14px;font-size:12px;font-weight:600;color:var(--text2);line-height:1.5;}
+.prog-pr-row{display:flex;align-items:center;justify-content:space-between;padding:12px 16px;border-bottom:0.5px solid var(--border);}
+.prog-pr-row:last-child{border-bottom:none;}
+.prog-pr-name{font-size:13px;font-weight:700;color:var(--text);}
+.prog-pr-sub{font-size:10px;color:var(--text3);font-weight:600;margin-top:2px;}
+.prog-pr-right{display:flex;align-items:center;gap:12px;}
+.prog-pr-w{font-family:var(--font-display);font-size:20px;letter-spacing:0.5px;color:var(--amber);}
+.prog-pr-del{background:none;border:none;color:var(--text3);font-size:16px;cursor:pointer;line-height:1;padding:0;font-weight:700;}
+.prog-pago-card{margin:0 16px 40px;background:var(--bg2);border:0.5px solid var(--border);border-radius:var(--radius);padding:18px;box-shadow:0 2px 12px rgba(0,0,0,0.06);}
+.prog-pago-next{font-family:var(--font-display);font-size:26px;letter-spacing:1px;color:var(--text);line-height:1.1;}
+.prog-pago-days{font-size:13px;font-weight:700;margin-top:4px;color:var(--text2);}
+.prog-pago-urgente{color:var(--red)!important;}
+.prog-pago-row{display:flex;gap:8px;align-items:center;margin-top:14px;padding-top:14px;border-top:0.5px solid var(--border);}
+.prog-pago-row input{flex:1;background:var(--bg3);border:1.5px solid var(--border2);border-radius:var(--radius-xs);padding:9px 12px;font-size:14px;color:var(--text);font-family:var(--font);outline:none;}
+.prog-pago-row input:focus{border-color:var(--green);}
+.prog-pago-btn{background:var(--green);border:none;border-radius:var(--radius-xs);padding:9px 14px;font-size:13px;font-weight:800;color:#fff;cursor:pointer;font-family:var(--font);white-space:nowrap;}
 </style>
 </head>
 <body>
@@ -1098,6 +1114,8 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:22px;heigh
     <div class="page-big-sub" id="prog-dias-sub">0 días registrados</div>
   </div>
 
+  <div class="prog-fatiga" id="prog-fatiga"><span id="prog-fatiga-msg"></span></div>
+
   <div class="prog-tabs">
     <button class="prog-tab active" id="ptab-semana" onclick="changeProgPeriod('semana')">Semana</button>
     <button class="prog-tab" id="ptab-mes" onclick="changeProgPeriod('mes')">Mes</button>
@@ -1148,6 +1166,12 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:22px;heigh
     <div class="prog-cal-grid" id="prog-cal-grid"></div>
     <div id="prog-cal-legend" style="display:flex;gap:8px;margin-top:12px;flex-wrap:wrap;"></div>
   </div>
+
+  <div class="section-title">Récords personales</div>
+  <div id="prog-prs-wrap" style="margin:0 16px 8px;background:var(--bg2);border:0.5px solid var(--border);border-radius:var(--radius);overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,0.06);"></div>
+
+  <div class="section-title">Gym</div>
+  <div class="prog-pago-card" id="prog-pago-card"></div>
 </div>
 
 </div>
@@ -2809,6 +2833,9 @@ function goProgreso(){
   renderPesoDisplay();
   renderPesoChart();
   renderProgCalendario();
+  checkFatigaWarning();
+  renderPRs();
+  renderGymPayment();
 }
 
 function changeProgPeriod(p){
@@ -2955,6 +2982,112 @@ function renderProgCalendario(){
     if(dobleN) lh+=`<span style="font-size:10px;font-weight:700;color:var(--green);background:var(--green-dim);padding:3px 9px;border-radius:20px;">Doble ×${dobleN}</span>`;
     leg.innerHTML=lh||`<span style="font-size:11px;color:var(--text3);">Sin entrenos este mes</span>`;
   }
+}
+
+function checkFatigaWarning(){
+  const trainLog=sget('train_log')||{};
+  const todayStr=dkey(new Date());
+  const startIdx=trainLog[todayStr]?0:1;
+  let streak=0;
+  for(let i=startIdx;i<15;i++){
+    const d=new Date();d.setDate(d.getDate()-i);
+    if(trainLog[dkey(d)]) streak++;
+    else break;
+  }
+  const wk=getProgresoEntries('semana');
+  const avgDef=wk.length?wk.reduce((s,[,v])=>s+(v.def||0),0)/wk.length:0;
+  const banner=document.getElementById('prog-fatiga');
+  const msg=document.getElementById('prog-fatiga-msg');
+  if(!banner||!msg) return;
+  const warns=[];
+  if(streak>=6) warns.push(`${streak} días seguidos entrenando — considera un día de descanso.`);
+  if(avgDef>900) warns.push(`Déficit medio de ${Math.round(avgDef)} kcal/día esta semana.`);
+  banner.style.display=warns.length?'block':'none';
+  if(warns.length) msg.textContent='⚠️ '+warns.join(' · ');
+}
+
+function renderPRs(){
+  const wrap=document.getElementById('prog-prs-wrap');
+  if(!wrap) return;
+  const rows=[];
+  [[R1,1],[R2,2]].forEach(([rutina,r])=>{
+    rutina.forEach((ex,i)=>{
+      const pr=sget('gym_pr_w_'+r+'_'+i);
+      if(pr) rows.push({name:ex.name,rutina:'R'+r,pr,key:r+'_'+i});
+    });
+  });
+  if(rows.length===0){
+    wrap.innerHTML='<div style="padding:18px 16px;font-size:13px;color:var(--text3);">Sin récords aún. Se guardan automáticamente al finalizar cada entreno.</div>';
+    return;
+  }
+  wrap.innerHTML=rows.map(r=>`<div class="prog-pr-row">
+    <div><div class="prog-pr-name">${r.name}</div><div class="prog-pr-sub">${r.rutina}</div></div>
+    <div class="prog-pr-right">
+      <div class="prog-pr-w">${r.pr}</div>
+      <button class="prog-pr-del" onclick="deletePR('${r.key}')">✕</button>
+    </div>
+  </div>`).join('');
+}
+
+function deletePR(key){
+  sset('gym_pr_w_'+key,null);
+  renderPRs();
+}
+
+function calcNextGymPayment(lastStr){
+  const p=lastStr.split('-');
+  const y=parseInt(p[0]),m=parseInt(p[1])-1,d=parseInt(p[2]);
+  const next=new Date(y,m+1,d);
+  const dow=next.getDay();
+  if(dow===6) next.setDate(next.getDate()+2);
+  if(dow===0) next.setDate(next.getDate()+1);
+  return dkey(next);
+}
+
+function daysUntilPayment(dateStr){
+  const today=new Date();today.setHours(0,0,0,0);
+  const p=dateStr.split('-');
+  const t=new Date(parseInt(p[0]),parseInt(p[1])-1,parseInt(p[2]));
+  return Math.round((t-today)/86400000);
+}
+
+function renderGymPayment(){
+  const card=document.getElementById('prog-pago-card');
+  if(!card) return;
+  const stored=sget('gym_pago');
+  const DIAS=['domingo','lunes','martes','miércoles','jueves','viernes','sábado'];
+  const MESES=['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
+  let infoHTML='';
+  if(stored&&stored.date){
+    const nextStr=calcNextGymPayment(stored.date);
+    const dias=daysUntilPayment(nextStr);
+    const p=nextStr.split('-');
+    const nd=new Date(parseInt(p[0]),parseInt(p[1])-1,parseInt(p[2]));
+    const dowName=DIAS[nd.getDay()];
+    const urgent=dias<=2;
+    const cls=urgent?' prog-pago-urgente':'';
+    const dLabel=dias<0?`Hace ${Math.abs(dias)} días`:dias===0?'¡Hoy!':dias===1?'Mañana':`En ${dias} días`;
+    const paid=stored.date.split('-').reverse().join('/');
+    infoHTML=`<div class="prog-pago-next${cls}">${dowName.charAt(0).toUpperCase()+dowName.slice(1)}, ${nd.getDate()} de ${MESES[nd.getMonth()]}</div>
+<div class="prog-pago-days${cls}">${dLabel}</div>
+<div style="font-size:10px;color:var(--text3);margin-top:4px;">Último pago: ${paid}</div>`;
+  } else {
+    infoHTML='<div style="font-size:13px;color:var(--text3);padding-bottom:8px;">Introduce la fecha de tu último pago para ver cuándo toca el siguiente.</div>';
+  }
+  card.innerHTML=`<div style="font-size:11px;font-weight:800;letter-spacing:0.08em;text-transform:uppercase;color:var(--text3);margin-bottom:10px;">Próximo pago</div>
+${infoHTML}
+<div class="prog-pago-row">
+  <input type="date" id="prog-pago-input" value="${stored&&stored.date?stored.date:''}">
+  <button class="prog-pago-btn" onclick="registrarPagoGym()">Guardar</button>
+</div>`;
+}
+
+function registrarPagoGym(){
+  const inp=document.getElementById('prog-pago-input');
+  if(!inp||!inp.value) return;
+  sset('gym_pago',{date:inp.value});
+  renderGymPayment();
+  showToast('Fecha de pago guardada ✓');
 }
 </script>
 </body>
