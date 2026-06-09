@@ -419,6 +419,34 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:22px;heigh
 .ajustes-stepper{display:flex;align-items:center;gap:12px;}
 .ajustes-stepper-btn{width:30px;height:30px;border-radius:50%;border:1.5px solid var(--border2);background:var(--bg);color:var(--text);font-size:18px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;}
 .ajustes-stepper-val{font-size:17px;font-weight:800;color:var(--text);min-width:24px;text-align:center;}
+/* PROGRESO */
+.prog-tabs{display:flex;gap:8px;margin:0 16px 18px;}
+.prog-tab{flex:1;padding:10px 6px;background:var(--bg3);border:1.5px solid var(--border);border-radius:var(--radius-xs);font-size:13px;font-weight:700;color:var(--text2);cursor:pointer;text-align:center;font-family:var(--font);}
+.prog-tab.active{background:var(--green-dim);border-color:var(--green);color:var(--green);}
+.prog-stats{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:0 16px 16px;}
+.prog-stat{background:var(--bg2);border:0.5px solid var(--border);border-radius:var(--radius-sm);padding:14px 16px;text-align:center;box-shadow:0 1px 6px rgba(0,0,0,0.04);}
+.prog-stat-val{font-family:var(--font-display);font-size:28px;letter-spacing:0.5px;color:var(--text);line-height:1;}
+.prog-stat-lbl{font-size:10px;color:var(--text3);font-weight:700;text-transform:uppercase;letter-spacing:0.08em;margin-top:5px;}
+.prog-peso-card{margin:0 16px 8px;background:var(--bg2);border:0.5px solid var(--border);border-radius:var(--radius);padding:18px 18px 14px;box-shadow:0 2px 12px rgba(0,0,0,0.06);}
+.prog-peso-top{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:14px;}
+.prog-peso-cur{font-family:var(--font-display);font-size:40px;letter-spacing:1px;color:var(--text);line-height:1;}
+.prog-peso-lbl{font-size:10px;color:var(--text3);font-weight:700;text-transform:uppercase;letter-spacing:0.08em;margin-top:3px;}
+.prog-peso-row{display:flex;gap:8px;align-items:center;}
+.prog-peso-row input{width:88px;background:var(--bg3);border:1.5px solid var(--border2);border-radius:var(--radius-xs);padding:9px 10px;font-size:15px;color:var(--text);font-family:var(--font);text-align:center;outline:none;}
+.prog-peso-row input:focus{border-color:var(--green);}
+.prog-peso-row button{background:var(--green);border:none;border-radius:var(--radius-xs);padding:9px 14px;font-size:13px;font-weight:800;color:#fff;cursor:pointer;font-family:var(--font);}
+.prog-cal-card{margin:0 16px 40px;background:var(--bg2);border:0.5px solid var(--border);border-radius:var(--radius);padding:18px;box-shadow:0 2px 12px rgba(0,0,0,0.06);}
+.prog-cal-hdr{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;}
+.prog-cal-month{font-family:var(--font-display);font-size:22px;letter-spacing:1.5px;color:var(--text);}
+.prog-cal-nav{background:none;border:1.5px solid var(--border2);border-radius:8px;width:32px;height:32px;font-size:18px;color:var(--text2);cursor:pointer;display:flex;align-items:center;justify-content:center;font-family:var(--font);}
+.prog-cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:3px;}
+.prog-cal-dow{font-size:9px;font-weight:800;text-transform:uppercase;color:var(--text3);text-align:center;padding:0 0 6px;}
+.prog-cal-day{aspect-ratio:1;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;color:var(--text3);background:var(--bg3);}
+.prog-cal-day.has-gym{background:var(--amber-dim);color:var(--amber);font-weight:800;}
+.prog-cal-day.has-cf{background:rgba(59,130,246,0.12);color:var(--blue);font-weight:800;}
+.prog-cal-day.has-doble{background:var(--green-dim);color:var(--green);font-weight:800;}
+.prog-cal-day.is-today{outline:2px solid var(--text);outline-offset:-2px;}
+.prog-cal-day.is-empty{background:transparent;}
 </style>
 </head>
 <body>
@@ -566,7 +594,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:22px;heigh
       </div>
     </div>
     <!-- Progreso: wide + centrado -->
-    <div class="menu-card purple-card wide centered" onclick="goScreen('progreso')" style="grid-column:span 2;">
+    <div class="menu-card purple-card wide centered" onclick="goProgreso()" style="grid-column:span 2;">
       <div class="menu-card-accent"></div>
       <div style="font-size:40px;">📈</div>
       <div style="text-align:center;">
@@ -1060,8 +1088,66 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:22px;heigh
   <div id="compra-content" style="padding-bottom:40px;"></div>
 </div>
 <div class="screen" id="screen-progreso">
-  <div class="ali-header"><button class="page-back" onclick="goInicio()"><svg viewBox="0 0 24 24"><polyline points="15,18 9,12 15,6"/></svg>Inicio</button><div class="page-big-title">Progreso</div></div>
-  <div class="coming-soon"><div class="cs-icon">📈</div><div class="cs-title">En construcción</div><div class="cs-sub">Peso, logros, calendario de entrenos y fotos de progreso. Próximamente.</div></div>
+  <div class="ali-header">
+    <svg class="ali-header-swoosh" viewBox="0 0 400 120" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+      <path d="M-20,90 C80,20 200,100 340,40 S440,10 480,60" stroke="#93c5fd" stroke-width="2" fill="none" opacity="0.4"/>
+      <path d="M0,110 C100,50 220,110 360,50 S460,20 500,80" stroke="#bfdbfe" stroke-width="1" fill="none" opacity="0.3"/>
+    </svg>
+    <button class="page-back" onclick="goInicio()"><svg viewBox="0 0 24 24"><polyline points="15,18 9,12 15,6"/></svg>Inicio</button>
+    <div class="page-big-title">Progreso</div>
+    <div class="page-big-sub" id="prog-dias-sub">0 días registrados</div>
+  </div>
+
+  <div class="prog-tabs">
+    <button class="prog-tab active" id="ptab-semana" onclick="changeProgPeriod('semana')">Semana</button>
+    <button class="prog-tab" id="ptab-mes" onclick="changeProgPeriod('mes')">Mes</button>
+    <button class="prog-tab" id="ptab-total" onclick="changeProgPeriod('total')">Total</button>
+  </div>
+
+  <div class="prog-stats">
+    <div class="prog-stat">
+      <div class="prog-stat-val" id="ps-def">—</div>
+      <div class="prog-stat-lbl">Déficit acum.</div>
+    </div>
+    <div class="prog-stat">
+      <div class="prog-stat-val" id="ps-entrenos">—</div>
+      <div class="prog-stat-lbl">Entrenos</div>
+    </div>
+    <div class="prog-stat">
+      <div class="prog-stat-val" id="ps-kcal">—</div>
+      <div class="prog-stat-lbl">Media kcal</div>
+    </div>
+    <div class="prog-stat">
+      <div class="prog-stat-val" id="ps-prot">—</div>
+      <div class="prog-stat-lbl">Media prot.</div>
+    </div>
+  </div>
+
+  <div class="section-title">Peso</div>
+  <div class="prog-peso-card">
+    <div class="prog-peso-top">
+      <div>
+        <div class="prog-peso-cur" id="ps-peso-cur">— kg</div>
+        <div class="prog-peso-lbl">último registro</div>
+      </div>
+      <div class="prog-peso-row">
+        <input type="number" id="prog-peso-input" placeholder="68.5" step="0.1" min="30" max="250" inputmode="decimal">
+        <button onclick="logPesoHoy()">Guardar</button>
+      </div>
+    </div>
+    <svg id="prog-peso-chart" viewBox="0 0 300 90" preserveAspectRatio="none" style="width:100%;height:90px;display:block;"></svg>
+  </div>
+
+  <div class="section-title">Entrenamientos</div>
+  <div class="prog-cal-card">
+    <div class="prog-cal-hdr">
+      <button class="prog-cal-nav" onclick="progCalNav(-1)">&#8249;</button>
+      <div class="prog-cal-month" id="prog-cal-month">Jun 2026</div>
+      <button class="prog-cal-nav" onclick="progCalNav(1)">&#8250;</button>
+    </div>
+    <div class="prog-cal-grid" id="prog-cal-grid"></div>
+    <div id="prog-cal-legend" style="display:flex;gap:8px;margin-top:12px;flex-wrap:wrap;"></div>
+  </div>
 </div>
 
 </div>
@@ -2708,6 +2794,167 @@ function confirmDeleteProfile(){
   setProfiles(profiles);
   currentProfileId=null;
   initApp();
+}
+
+// ── PROGRESO ─────────────────────────────────────────────
+let currentProgPeriod='semana';
+let progCalYear=new Date().getFullYear();
+let progCalMonth=new Date().getMonth();
+
+function goProgreso(){
+  progCalYear=new Date().getFullYear();
+  progCalMonth=new Date().getMonth();
+  goScreen('progreso');
+  changeProgPeriod('semana');
+  renderPesoDisplay();
+  renderPesoChart();
+  renderProgCalendario();
+}
+
+function changeProgPeriod(p){
+  currentProgPeriod=p;
+  ['semana','mes','total'].forEach(t=>{
+    const tab=document.getElementById('ptab-'+t);
+    if(tab) tab.classList.toggle('active',t===p);
+  });
+  renderProgresoStats();
+}
+
+function getProgresoEntries(period){
+  const log=sget('week_log')||{};
+  const all=Object.entries(log).sort((a,b)=>a[0]<b[0]?-1:1);
+  if(period==='total') return all;
+  const cutoff=new Date();
+  if(period==='semana') cutoff.setDate(cutoff.getDate()-6);
+  else cutoff.setDate(cutoff.getDate()-29);
+  const cutStr=dkey(cutoff);
+  return all.filter(([d])=>d>=cutStr);
+}
+
+function renderProgresoStats(){
+  const entries=getProgresoEntries(currentProgPeriod);
+  const days=entries.length;
+  const entrenos=entries.filter(([,v])=>v.train&&v.train!=='descanso').length;
+  const defAcum=Math.round(entries.reduce((s,[,v])=>s+(v.def||0),0));
+  const avgKcal=days>0?Math.round(entries.reduce((s,[,v])=>s+(v.kcal||0),0)/days):0;
+  const avgProt=days>0?Math.round(entries.reduce((s,[,v])=>s+(v.prot||0),0)/days):0;
+  const set=(id,txt)=>{const e=document.getElementById(id);if(e)e.textContent=txt;};
+  set('ps-def',defAcum!==0?(defAcum>0?'+':'')+defAcum.toLocaleString('es-ES'):'—');
+  set('ps-entrenos',days>0?String(entrenos):'—');
+  set('ps-kcal',avgKcal>0?avgKcal.toLocaleString('es-ES'):'—');
+  set('ps-prot',avgProt>0?avgProt+'g':'—');
+  const allDays=getProgresoEntries('total').length;
+  const sub=document.getElementById('prog-dias-sub');
+  if(sub) sub.textContent=allDays+(allDays===1?' día registrado':' días registrados');
+}
+
+function logPesoHoy(){
+  const input=document.getElementById('prog-peso-input');
+  const w=parseFloat((input.value||'').replace(',','.'));
+  if(!w||w<30||w>250){showToast('Peso inválido');return;}
+  const log=sget('peso_log')||[];
+  const today=dkey(new Date());
+  const idx=log.findIndex(e=>e.date===today);
+  if(idx>=0) log[idx].w=w; else log.push({date:today,w});
+  if(log.length>365) log.shift();
+  sset('peso_log',log);
+  input.value='';
+  renderPesoDisplay();
+  renderPesoChart();
+  showToast('Peso guardado ✓');
+}
+
+function renderPesoDisplay(){
+  const el=document.getElementById('ps-peso-cur');
+  if(!el) return;
+  const log=sget('peso_log')||[];
+  if(log.length===0){
+    const p=getProfiles().find(x=>x.id===currentProfileId);
+    el.textContent=(p&&p.weight?p.weight:'—')+' kg';
+  } else {
+    el.textContent=log[log.length-1].w+' kg';
+  }
+}
+
+function renderPesoChart(){
+  const svg=document.getElementById('prog-peso-chart');
+  if(!svg) return;
+  const raw=sget('peso_log')||[];
+  const log=raw.slice(-60);
+  const W=300,H=90,pl=28,pr=10,pt=10,pb=16;
+  if(log.length===0){
+    svg.innerHTML='<text x="150" y="50" text-anchor="middle" fill="#999" font-size="10" font-family="Inter,sans-serif">Registra tu peso diario</text>';
+    return;
+  }
+  if(log.length===1){
+    svg.innerHTML=`<circle cx="150" cy="45" r="5" fill="#16a34a"/><text x="150" y="32" text-anchor="middle" fill="#16a34a" font-size="11" font-family="Inter,sans-serif" font-weight="700">${log[0].w} kg</text>`;
+    return;
+  }
+  const ws=log.map(d=>d.w);
+  const minW=Math.min(...ws),maxW=Math.max(...ws);
+  const rng=maxW===minW?1:maxW-minW;
+  const n=log.length;
+  const cx=i=>pl+(i/(n-1))*(W-pl-pr);
+  const cy=w=>pt+(1-(w-minW)/rng)*(H-pt-pb);
+  const pts=log.map((d,i)=>`${cx(i).toFixed(1)},${cy(d.w).toFixed(1)}`).join(' ');
+  const ma=log.map((_,i)=>{const sl=log.slice(Math.max(0,i-6),i+1);return sl.reduce((s,d)=>s+d.w,0)/sl.length;});
+  const maPts=ma.map((w,i)=>`${cx(i).toFixed(1)},${cy(w).toFixed(1)}`).join(' ');
+  const bx0=cx(0).toFixed(1),bxN=cx(n-1).toFixed(1),base=(H-pb).toFixed(1);
+  const areaD=`M${bx0},${cy(log[0].w).toFixed(1)} L${log.slice(1).map((d,i)=>`${cx(i+1).toFixed(1)},${cy(d.w).toFixed(1)}`).join(' L')} L${bxN},${base} L${bx0},${base} Z`;
+  const lastX=cx(n-1).toFixed(1),lastY=cy(log[n-1].w).toFixed(1);
+  svg.innerHTML=`<defs><linearGradient id="pgrd" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#16a34a" stop-opacity="0.18"/><stop offset="100%" stop-color="#16a34a" stop-opacity="0"/></linearGradient></defs>
+<path d="${areaD}" fill="url(#pgrd)"/>
+<polyline points="${pts}" fill="none" stroke="#16a34a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="${maPts}" fill="none" stroke="#16a34a" stroke-width="1.5" stroke-dasharray="4,3" opacity="0.4" stroke-linecap="round"/>
+<text x="${pl-3}" y="${cy(maxW).toFixed(1)}" text-anchor="end" dominant-baseline="middle" fill="#aaa" font-size="8" font-family="Inter,sans-serif">${maxW}</text>
+<text x="${pl-3}" y="${cy(minW).toFixed(1)}" text-anchor="end" dominant-baseline="middle" fill="#aaa" font-size="8" font-family="Inter,sans-serif">${minW}</text>
+<circle cx="${lastX}" cy="${lastY}" r="4" fill="#16a34a"/>
+<text x="${lastX}" y="${(parseFloat(lastY)-7).toFixed(1)}" text-anchor="middle" fill="#16a34a" font-size="9" font-family="Inter,sans-serif" font-weight="700">${log[n-1].w}</text>`;
+}
+
+function progCalNav(dir){
+  progCalMonth+=dir;
+  if(progCalMonth>11){progCalMonth=0;progCalYear++;}
+  if(progCalMonth<0){progCalMonth=11;progCalYear--;}
+  renderProgCalendario();
+}
+
+function renderProgCalendario(){
+  const grid=document.getElementById('prog-cal-grid');
+  const monthEl=document.getElementById('prog-cal-month');
+  if(!grid) return;
+  const MESES=['ENE','FEB','MAR','ABR','MAY','JUN','JUL','AGO','SEP','OCT','NOV','DIC'];
+  if(monthEl) monthEl.textContent=MESES[progCalMonth]+' '+progCalYear;
+  const trainLog=sget('train_log')||{};
+  const today=dkey(new Date());
+  const firstDow=new Date(progCalYear,progCalMonth,1).getDay();
+  const daysInMonth=new Date(progCalYear,progCalMonth+1,0).getDate();
+  const offset=(firstDow+6)%7;
+  let html=['L','M','X','J','V','S','D'].map(d=>`<div class="prog-cal-dow">${d}</div>`).join('');
+  for(let i=0;i<offset;i++) html+=`<div class="prog-cal-day is-empty"></div>`;
+  let gymN=0,cfN=0,dobleN=0;
+  for(let d=1;d<=daysInMonth;d++){
+    const ds=`${progCalYear}-${String(progCalMonth+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+    const entry=trainLog[ds];
+    let cls='prog-cal-day';
+    if(entry){
+      const t=entry.type||'';
+      if(t.includes('+')) {cls+=' has-doble';dobleN++;}
+      else if(t.toLowerCase().includes('crossfit')) {cls+=' has-cf';cfN++;}
+      else {cls+=' has-gym';gymN++;}
+    }
+    if(ds===today) cls+=' is-today';
+    html+=`<div class="${cls}">${d}</div>`;
+  }
+  grid.innerHTML=html;
+  const leg=document.getElementById('prog-cal-legend');
+  if(leg){
+    let lh='';
+    if(gymN) lh+=`<span style="font-size:10px;font-weight:700;color:var(--amber);background:var(--amber-dim);padding:3px 9px;border-radius:20px;">Gym ×${gymN}</span>`;
+    if(cfN) lh+=`<span style="font-size:10px;font-weight:700;color:var(--blue);background:rgba(59,130,246,0.12);padding:3px 9px;border-radius:20px;">CrossFit ×${cfN}</span>`;
+    if(dobleN) lh+=`<span style="font-size:10px;font-weight:700;color:var(--green);background:var(--green-dim);padding:3px 9px;border-radius:20px;">Doble ×${dobleN}</span>`;
+    leg.innerHTML=lh||`<span style="font-size:11px;color:var(--text3);">Sin entrenos este mes</span>`;
+  }
 }
 </script>
 </body>
