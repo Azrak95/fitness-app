@@ -2762,6 +2762,7 @@ function openProfileMenu(){
   }
   items+=`<div class="profile-menu-item" onclick="goOnboarding()"><span class="profile-menu-icon">➕</span>Añadir perfil</div>`;
   items+=`<div class="profile-menu-item danger" onclick="confirmDeleteProfile()"><span class="profile-menu-icon">🗑️</span>Eliminar perfil</div>`;
+  items+=`<div class="profile-menu-item danger" onclick="confirmResetAll()" style="margin-top:8px;border-top:1px solid var(--border);padding-top:16px;"><span class="profile-menu-icon">⚠️</span>Reiniciar todo desde cero</div>`;
   document.getElementById('pmenu-items').innerHTML=items;
   document.getElementById('profile-overlay').classList.add('open');
 }
@@ -2817,6 +2818,15 @@ function confirmDeleteProfile(){
   if(!confirm(`¿Eliminar el perfil de ${p.name}? Se borrarán todos sus datos.`))return;
   const profiles=getProfiles().filter(x=>x.id!==currentProfileId);
   setProfiles(profiles);
+  currentProfileId=null;
+  initApp();
+}
+
+function confirmResetAll(){
+  closeProfileMenu();
+  if(!confirm('⚠️ Esto borrará TODOS los datos de la app: perfiles, historial de alimentación, entrenos, peso y despensa.\n\n¿Continuar?')) return;
+  if(!confirm('Última confirmación: todos los datos se perderán y no se pueden recuperar.\n\n¿Borrar todo y empezar de cero?')) return;
+  localStorage.clear();
   currentProfileId=null;
   initApp();
 }
