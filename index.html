@@ -152,6 +152,7 @@ nav{position:fixed;bottom:0;left:0;right:0;z-index:200;background:rgba(238,238,2
   box-shadow:0 2px 12px rgba(0,0,0,0.06);
 }
 .menu-card:active{transform:scale(0.97);box-shadow:none;}
+#agua-card,#agua-card *{transition:none!important;}
 #agua-card:active{transform:none;}
 .menu-card.wide{grid-column:span 2;min-height:100px;flex-direction:row;align-items:center;gap:16px;}
 .menu-card.wide .menu-card-text{flex:1;}
@@ -1588,8 +1589,8 @@ function openAguaModal(){renderAguaModal();document.getElementById('agua-modal-o
 function closeAguaModal(){document.getElementById('agua-modal-overlay').classList.remove('open');}
 function addVaso(delta){
   setAguaHoy(getAguaHoy()+delta);
+  renderAguaCard();
   renderAguaModal();
-  setTimeout(renderAguaCard,0);
 }
 
 // ── DESPENSA ─────────────────────────────────────────────
