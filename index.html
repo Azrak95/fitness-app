@@ -553,10 +553,10 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:22px;heigh
           <div class="menu-card-name">Agua</div>
           <div class="menu-card-sub" id="agua-card-count">0/8 vasos</div>
         </div>
-        <div style="display:flex;align-items:center;gap:8px;" onclick="event.stopPropagation()">
-          <button class="agua-quick-btn" onclick="addVaso(-1)">−</button>
+        <div style="display:flex;align-items:center;gap:8px;">
+          <button class="agua-quick-btn" onclick="event.stopPropagation();addVaso(-1)">−</button>
           <div id="agua-card-pct" style="font-size:18px;font-weight:900;color:var(--red);min-width:38px;text-align:center;">0%</div>
-          <button class="agua-quick-btn plus" onclick="addVaso(1)">+</button>
+          <button class="agua-quick-btn plus" onclick="event.stopPropagation();addVaso(1)">+</button>
         </div>
       </div>
       <div style="margin-top:10px;height:4px;border-radius:2px;background:rgba(0,0,0,0.08);overflow:hidden;">
@@ -1588,7 +1588,7 @@ function closeAguaModal(){document.getElementById('agua-modal-overlay').classLis
 function addVaso(delta){
   setAguaHoy(getAguaHoy()+delta);
   renderAguaModal();
-  renderAguaCard();
+  requestAnimationFrame(renderAguaCard);
 }
 
 // ── DESPENSA ─────────────────────────────────────────────
