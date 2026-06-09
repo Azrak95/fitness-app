@@ -1147,6 +1147,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:22px;heigh
       <div>
         <div class="prog-peso-cur" id="ps-peso-cur">— kg</div>
         <div class="prog-peso-lbl">último registro</div>
+        <div id="prog-peso-diff" style="font-size:12px;font-weight:700;margin-top:5px;min-height:16px;"></div>
       </div>
       <div class="prog-peso-row">
         <input type="number" id="prog-peso-input" placeholder="68.5" step="0.1" min="30" max="250" inputmode="decimal">
@@ -2893,14 +2894,27 @@ function logPesoHoy(){
 
 function renderPesoDisplay(){
   const el=document.getElementById('ps-peso-cur');
+  const diffEl=document.getElementById('prog-peso-diff');
   if(!el) return;
   const log=sget('peso_log')||[];
   if(log.length===0){
     const p=getProfiles().find(x=>x.id===currentProfileId);
     el.textContent=(p&&p.weight?p.weight:'—')+' kg';
-  } else {
-    el.textContent=log[log.length-1].w+' kg';
+    if(diffEl) diffEl.innerHTML='';
+    return;
   }
+  el.textContent=log[log.length-1].w+' kg';
+  if(!diffEl) return;
+  if(log.length<2){diffEl.innerHTML='';return;}
+  const last=log[log.length-1];
+  const prev=log[log.length-2];
+  const diff=Math.round((last.w-prev.w)*10)/10;
+  const p1=prev.date.split('-'),p2=last.date.split('-');
+  const days=Math.round((new Date(parseInt(p2[0]),parseInt(p2[1])-1,parseInt(p2[2]))-new Date(parseInt(p1[0]),parseInt(p1[1])-1,parseInt(p1[2])))/86400000);
+  const dLabel=days===0?'hoy':days===1?'1 día':`${days} días`;
+  if(diff>0) diffEl.innerHTML=`<span style="color:var(--red);">+${diff} kg en ${dLabel}</span>`;
+  else if(diff<0) diffEl.innerHTML=`<span style="color:var(--green);">${diff} kg en ${dLabel}</span>`;
+  else diffEl.innerHTML=`<span style="color:var(--text3);">Sin cambio (${dLabel})</span>`;
 }
 
 function renderPesoChart(){
