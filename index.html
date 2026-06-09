@@ -603,7 +603,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:22px;heigh
   <div class="ali-section ali-white">
   <div class="sec-lbl">☀️ Desayuno</div>
   <div class="opt-grid">
-    <div class="opt-card sel" onclick="selMeal('desayuno','completo',this)"><div class="opt-emoji">🍞</div><div class="opt-name">Tostada de pavo, café con leche y plátano</div><div class="opt-kcal">369 kcal</div><div class="opt-prot">19g prot</div></div>
+    <div class="opt-card" onclick="selMeal('desayuno','completo',this)"><div class="opt-emoji">🍞</div><div class="opt-name">Tostada de pavo, café con leche y plátano</div><div class="opt-kcal">369 kcal</div><div class="opt-prot">19g prot</div></div>
     <div class="opt-card" onclick="selMeal('desayuno','nada',this)"><div class="opt-emoji">⛔</div><div class="opt-name">Sin desayuno</div><div class="opt-kcal">0 kcal</div><div class="opt-prot">—</div></div>
     <div class="opt-card" id="manual-card-desayuno" onclick="toggleManual('desayuno',this)"><div class="opt-emoji">✏️</div><div class="opt-name">Otro</div><div class="opt-kcal" id="manual-disp-desayuno">—</div><div class="opt-prot" id="manual-prot-desayuno">—</div></div>
   </div>
@@ -642,7 +642,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:22px;heigh
   <div class="ali-section ali-gray">
   <div class="sec-lbl">🥦 Comida</div>
   <div class="opt-grid">
-    <div class="opt-card sel" onclick="selComida('taper',this)"><div class="opt-emoji">🍛</div><div class="opt-name">Lentejas con pollo y verduras</div><div class="opt-kcal">490 kcal</div><div class="opt-prot">54g prot</div></div>
+    <div class="opt-card" onclick="selComida('taper',this)"><div class="opt-emoji">🍛</div><div class="opt-name">Lentejas con pollo y verduras</div><div class="opt-kcal">490 kcal</div><div class="opt-prot">54g prot</div></div>
     <div class="opt-card" onclick="selComida('garbanzos',this)"><div class="opt-emoji">🥘</div><div class="opt-name">Garbanzos con pollo y verduras</div><div class="opt-kcal">489 kcal</div><div class="opt-prot">59g prot</div></div>
     <div class="opt-card" onclick="selComida('arroz',this)"><div class="opt-emoji">🍚</div><div class="opt-name">Arroz con pollo y verduras</div><div class="opt-kcal">504 kcal</div><div class="opt-prot">52g prot</div></div>
     <div class="opt-card" onclick="selComida('patata',this)"><div class="opt-emoji">🥔</div><div class="opt-name">Patata cocida con pollo y verduras</div><div class="opt-kcal">489 kcal</div><div class="opt-prot">53g prot</div></div>
@@ -696,7 +696,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:22px;heigh
   <div class="ali-section ali-white">
   <div class="sec-lbl">🥤 Merienda</div>
   <div class="opt-grid">
-    <div class="opt-card sel" onclick="selMeal('merienda','batido',this)"><div class="opt-emoji">🥤</div><div class="opt-name">Batido de proteínas con agua</div><div class="opt-kcal">117 kcal</div><div class="opt-prot">28g prot</div></div>
+    <div class="opt-card" onclick="selMeal('merienda','batido',this)"><div class="opt-emoji">🥤</div><div class="opt-name">Batido de proteínas con agua</div><div class="opt-kcal">117 kcal</div><div class="opt-prot">28g prot</div></div>
     <div class="opt-card" onclick="selMeal('merienda','nada',this)"><div class="opt-emoji">⛔</div><div class="opt-name">Sin merienda</div><div class="opt-kcal">0 kcal</div><div class="opt-prot">—</div></div>
     <div class="opt-card" id="manual-card-merienda" onclick="toggleManual('merienda',this)"><div class="opt-emoji">✏️</div><div class="opt-name">Otro</div><div class="opt-kcal" id="manual-disp-merienda">—</div><div class="opt-prot" id="manual-prot-merienda">—</div></div>
   </div>
@@ -982,7 +982,7 @@ const DIAS_FULL=['Domingo','Lunes','Martes','Miércoles','Jueves','Viernes','Sá
 const MESES=['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
 
 let currentDate=new Date();currentDate.setHours(0,0,0,0);
-let state={train:'descanso',desayuno:'completo',comida:'taper',merienda:'batido',cena:null,salsa:null,postre:null,postrecomi:null,steps:0,extraDesayuno:[],extraComida:[],extraMerienda:[],extraCena:[]};
+let state={train:'descanso',desayuno:null,comida:null,merienda:null,cena:null,salsa:null,postre:null,postrecomi:null,steps:0,extraDesayuno:[],extraComida:[],extraMerienda:[],extraCena:[]};
 
 let currentProfileId=null;
 function _pk(k){return currentProfileId?currentProfileId+'_'+k:k;}
@@ -1016,7 +1016,7 @@ function goAli(){
   updateDateLabel();
   // Reload state fresh - picks up train set by finalizarEntreno
   const saved=sget('day_'+dkey(currentDate));
-  state=Object.assign({train:'descanso',desayuno:'completo',comida:'taper',merienda:'batido',cena:null,salsa:null,postre:null,postrecomi:null,steps:0,extraDesayuno:[],extraComida:[],extraMerienda:[],extraCena:[]},saved||{});
+  state=Object.assign({train:'descanso',desayuno:null,comida:null,merienda:null,cena:null,salsa:null,postre:null,postrecomi:null,steps:0,extraDesayuno:[],extraComida:[],extraMerienda:[],extraCena:[]},saved||{});
   syncUI();
   update();
 }
@@ -1073,7 +1073,7 @@ function changeDay(d){currentDate.setDate(currentDate.getDate()+d);updateDateLab
 
 function loadDayState(){
   const saved=sget('day_'+dkey(currentDate));
-  state=Object.assign({train:'descanso',desayuno:'completo',comida:'taper',merienda:'batido',cena:null,salsa:null,postre:null,postrecomi:null,steps:0,extraDesayuno:[],extraComida:[],extraMerienda:[],extraCena:[]},saved||{});
+  state=Object.assign({train:'descanso',desayuno:null,comida:null,merienda:null,cena:null,salsa:null,postre:null,postrecomi:null,steps:0,extraDesayuno:[],extraComida:[],extraMerienda:[],extraCena:[]},saved||{});
   syncUI();update();
 }
 
