@@ -1175,6 +1175,10 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:22px;heigh
       </div>
     </div>
     <svg id="prog-peso-chart" viewBox="0 0 300 90" preserveAspectRatio="none" style="width:100%;height:90px;display:block;"></svg>
+    <div style="text-align:right;margin-top:6px;">
+      <span style="font-size:11px;color:var(--text3);font-weight:700;cursor:pointer;text-decoration:underline;" onclick="togglePesoHistorial()">Corregir historial</span>
+    </div>
+    <div id="prog-peso-historial" class="manual-items" style="display:none;margin-top:10px;"></div>
   </div>
 
   <div class="section-title">Entrenamientos</div>
@@ -2987,6 +2991,35 @@ function renderPesoDisplay(){
   if(diff>0) diffEl.innerHTML=`<span style="color:var(--red);">+${diff} kg vs ${dLabel}</span>`;
   else if(diff<0) diffEl.innerHTML=`<span style="color:var(--green);">${diff} kg vs ${dLabel}</span>`;
   else diffEl.innerHTML=`<span style="color:var(--text3);">Sin cambio vs ${dLabel}</span>`;
+}
+
+function togglePesoHistorial(){
+  const el=document.getElementById('prog-peso-historial');
+  if(!el)return;
+  const open=el.style.display!=='none';
+  if(open){el.style.display='none';}
+  else{renderPesoHistorial();el.style.display='flex';}
+}
+
+function renderPesoHistorial(){
+  const el=document.getElementById('prog-peso-historial');
+  if(!el)return;
+  const log=sget('peso_log')||[];
+  if(log.length===0){el.innerHTML='<span style="font-size:12px;color:var(--text3);">Sin registros</span>';return;}
+  el.innerHTML=log.slice().reverse().map(e=>{
+    const d=new Date(e.date+'T12:00:00');
+    const dStr=d.getDate()+' '+MESES[d.getMonth()].slice(0,3);
+    return `<div class="manual-chip"><span class="manual-chip-name">${dStr}</span><span class="manual-chip-kcal">&nbsp;·&nbsp;${e.w} kg</span><button class="manual-chip-del" onclick="deletePesoEntry('${e.date}')">×</button></div>`;
+  }).join('');
+}
+
+function deletePesoEntry(date){
+  let log=sget('peso_log')||[];
+  log=log.filter(e=>e.date!==date);
+  sset('peso_log',log);
+  renderPesoDisplay();
+  renderPesoChart();
+  renderPesoHistorial();
 }
 
 function renderPesoChart(){
