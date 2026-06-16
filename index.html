@@ -884,6 +884,26 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:22px;heigh
   </div>
   </div>
 
+  <div class="ali-section ali-white">
+  <div class="sec-lbl">🍴 Otros (extras del día)</div>
+  <div class="opt-grid">
+    <div class="opt-card" data-otro-tag="huevo" onclick="toggleOtro('huevo','🥚 Huevo',75,6,0.6,5,this)"><div class="opt-emoji">🥚</div><div class="opt-name">Huevo</div><div class="opt-kcal">75 kcal</div></div>
+    <div class="opt-card" data-otro-tag="atun" onclick="toggleOtro('atun','🐟 Lata de atún',60,13,0,0.5,this)"><div class="opt-emoji">🐟</div><div class="opt-name">Lata de atún</div><div class="opt-kcal">60 kcal</div></div>
+    <div class="opt-card" data-otro-tag="havarti" onclick="toggleOtro('havarti','🧀 Loncha Havarti',70,5,0.5,5.4,this)"><div class="opt-emoji">🧀</div><div class="opt-name">Loncha Havarti</div><div class="opt-kcal">70 kcal</div></div>
+    <div class="opt-card" data-otro-tag="arroz50" onclick="toggleOtro('arroz50','🍚 50g arroz',175,3.5,38,0.5,this)"><div class="opt-emoji">🍚</div><div class="opt-name">50 g arroz</div><div class="opt-kcal">175 kcal</div></div>
+    <div class="opt-card" data-otro-tag="patata200" onclick="toggleOtro('patata200','🥔 200g patata cocida',155,4,34,0.2,this)"><div class="opt-emoji">🥔</div><div class="opt-name">200 g patata cocida</div><div class="opt-kcal">155 kcal</div></div>
+    <div class="opt-card" data-otro-tag="melocoton" onclick="toggleOtro('melocoton','🍑 Melocotón',60,1,14,0.2,this)"><div class="opt-emoji">🍑</div><div class="opt-name">Melocotón</div><div class="opt-kcal">60 kcal</div></div>
+  </div>
+  <div class="manual-row" style="margin:10px 16px 0;">
+    <div class="manual-row-title">🫒 Aceite (introduce gramos)</div>
+    <div class="manual-form-nums" style="display:flex;gap:10px;">
+      <input type="number" class="manual-input" placeholder="Gramos" id="otro-aceite-grams" style="flex:1;">
+      <button class="manual-add-btn" style="flex:0 0 auto;padding:0 16px;" onclick="addOtroAceite()">Añadir</button>
+    </div>
+  </div>
+  <div class="manual-items" id="manual-items-otros" style="margin:10px 16px 0;"></div>
+  </div>
+
   <button class="save-btn" onclick="saveDay()">Guardar día</button>
   <div style="height:16px;"></div>
 </div>
@@ -1195,7 +1215,7 @@ const DIAS_FULL=['Domingo','Lunes','Martes','Miércoles','Jueves','Viernes','Sá
 const MESES=['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
 
 let currentDate=new Date();currentDate.setHours(0,0,0,0);
-let state={train:'descanso',desayuno:null,comida:null,merienda:null,cena:null,salsa:null,postre:null,postrecomi:null,steps:0,extraDesayuno:[],extraComida:[],extraMerienda:[],extraCena:[]};
+let state={train:'descanso',desayuno:null,comida:null,merienda:null,cena:null,salsa:null,postre:null,postrecomi:null,steps:0,extraDesayuno:[],extraComida:[],extraMerienda:[],extraCena:[],extraOtros:[]};
 
 let currentProfileId=null;
 function _pk(k){return currentProfileId?currentProfileId+'_'+k:k;}
@@ -1229,7 +1249,7 @@ function goAli(){
   updateDateLabel();
   // Reload state fresh - picks up train set by finalizarEntreno
   const saved=sget('day_'+dkey(currentDate));
-  state=Object.assign({train:'descanso',desayuno:null,comida:null,merienda:null,cena:null,salsa:null,postre:null,postrecomi:null,steps:0,extraDesayuno:[],extraComida:[],extraMerienda:[],extraCena:[]},saved||{});
+  state=Object.assign({train:'descanso',desayuno:null,comida:null,merienda:null,cena:null,salsa:null,postre:null,postrecomi:null,steps:0,extraDesayuno:[],extraComida:[],extraMerienda:[],extraCena:[],extraOtros:[]},saved||{});
   syncUI();
   update();
 }
@@ -1287,7 +1307,7 @@ function changeDay(d){currentDate.setDate(currentDate.getDate()+d);updateDateLab
 
 function loadDayState(){
   const saved=sget('day_'+dkey(currentDate));
-  state=Object.assign({train:'descanso',desayuno:null,comida:null,merienda:null,cena:null,salsa:null,postre:null,postrecomi:null,steps:0,extraDesayuno:[],extraComida:[],extraMerienda:[],extraCena:[]},saved||{});
+  state=Object.assign({train:'descanso',desayuno:null,comida:null,merienda:null,cena:null,salsa:null,postre:null,postrecomi:null,steps:0,extraDesayuno:[],extraComida:[],extraMerienda:[],extraCena:[],extraOtros:[]},saved||{});
   syncUI();update();
 }
 
@@ -1314,6 +1334,7 @@ function syncUI(){
     if(inputs)inputs.style.display=items.length>0?'block':'none';
     renderManualItems(g);
   });
+  renderManualItems('otros');
 }
 
 function getExtra(g){
@@ -1339,6 +1360,7 @@ function renderManualItems(g){
   if(card){card.classList[items.length>0?'add':'remove']('sel');const nameEl=card.querySelector('.opt-name');if(nameEl)nameEl.textContent=items.length>0?items.map(it=>it.name).join(', '):'Otro';}
   if(items.length>0){if(form)form.style.display='none';if(more)more.style.display='block';}
   else{if(form)form.style.display='block';if(more)more.style.display='none';}
+  if(g==='otros')syncOtrosCards();
 }
 
 function toggleManual(g,el){
@@ -1370,6 +1392,37 @@ function addManualItem(g){
   const pi=document.getElementById('manual-p-'+g);
   if(ni)ni.value='';if(ki)ki.value='';if(pi)pi.value='';
   renderManualItems(g);
+  update();
+}
+
+const OTRO_DESPENSA_TAGS=['huevo','atun','havarti'];
+
+function toggleOtro(tag,name,k,p,c,f,el){
+  const items=getExtra('otros');
+  const idx=items.findIndex(it=>it.tag===tag);
+  if(idx>=0){
+    items.splice(idx,1);
+  } else {
+    items.push({name,k,p,c,f,tag,key:OTRO_DESPENSA_TAGS.includes(tag)?tag:null});
+  }
+  renderManualItems('otros');
+  update();
+}
+
+function syncOtrosCards(){
+  const tags=new Set(getExtra('otros').map(it=>it.tag).filter(Boolean));
+  document.querySelectorAll('[data-otro-tag]').forEach(el=>{
+    el.classList.toggle('sel',tags.has(el.dataset.otroTag));
+  });
+}
+
+function addOtroAceite(){
+  const gi=document.getElementById('otro-aceite-grams');
+  const grams=parseFloat(gi?.value)||0;
+  if(grams<=0)return;
+  getExtra('otros').push({name:'🫒 Aceite ('+grams+'g)',k:Math.round(grams*8.84),p:0,c:0,f:Math.round(grams*10)/10});
+  if(gi)gi.value='';
+  renderManualItems('otros');
   update();
 }
 
@@ -1614,7 +1667,7 @@ function calcDay(){
   const add=(g,v)=>{if(v&&KCAL[g]&&KCAL[g][v]){const m=KCAL[g][v];k+=m.k;p+=m.p;c+=m.c;f+=m.f;}};
   add('desayuno',state.desayuno);add('comida',state.comida);add('merienda',state.merienda);
   add('cena',state.cena);add('salsa',state.salsa);add('postre',state.postre);add('postrecomi',state.postrecomi);
-  ['extraDesayuno','extraComida','extraMerienda','extraCena'].forEach(ex=>{const v=state[ex];if(Array.isArray(v)){v.forEach(it=>{k+=it.k||0;p+=it.p||0;c+=it.c||0;f+=it.f||0;});}else if(v&&typeof v==='object'){k+=v.k||0;p+=v.p||0;c+=v.c||0;f+=v.f||0;}});
+  ['extraDesayuno','extraComida','extraMerienda','extraCena','extraOtros'].forEach(ex=>{const v=state[ex];if(Array.isArray(v)){v.forEach(it=>{k+=it.k||0;p+=it.p||0;c+=it.c||0;f+=it.f||0;});}else if(v&&typeof v==='object'){k+=v.k||0;p+=v.p||0;c+=v.c||0;f+=v.f||0;}});
   const stepsK=Math.round((state.steps||0)*0.04);
   const tdee=(TDEE_MAP[state.train]||2270)+stepsK;
   return{kcal:Math.round(k),prot:Math.round(p),carb:Math.round(c),fat:Math.round(f),tdee};
@@ -1936,6 +1989,7 @@ function applyDespensaDelta(st,sign){
   if(['taper','garbanzos','arroz','patata'].includes(st.comida)){adj('taperPorciones',1);}
   if(st.comida==='hamburguesa'){adj('panburger',1);adj('carnebur',1);adj('havarti',1);}
   if(st.salsa&&st.salsa!=='sin'){adj('qfb',1);}
+  (st.extraOtros||[]).forEach(it=>{if(it.key)adj(it.key,1);});
   let plat=0;
   if(st.desayuno==='completo')plat++;
   if(st.postrecomi==='platano')plat++;
